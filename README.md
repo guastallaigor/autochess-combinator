@@ -44,4 +44,4 @@ $ yarn dev
 
 ## License
 
-Apache License 2.0 © [guastallaigor](https://github.com/guastallaigor/autochess-combinator/blob/master/LICENSE) 2020
+[Apache License 2.0 © guastallaigor 2020](https://github.com/guastallaigor/autochess-combinator/blob/master/LICENSE)
