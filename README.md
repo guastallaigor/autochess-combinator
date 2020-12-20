@@ -1,30 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <img src="./public/android-chrome-192x192.png" width="200px">
+  <h1>Auto Chess Combinator</h1>
+</div>
+<p align="center">
+  Get information about every chess peace in Auto Chess (Epic Games) and make chess combinations as much as you want!
+</p>
 
-## Getting Started
+> **Note:**
 
-First, run the development server:
+> This is an unofficial project.
 
-```bash
-npm run dev
-# or
-yarn dev
+> I do not work or am I affiliated with Auto Chess, Drodo or Dragonest Co.Ltd
+
+> For more information about the game, visit [Auto Chess Official Website](https://ac.dragonest.com/)
+
+## Usage
+
+Recommended resolution for v0.1.0: >= 1024 x 768
+
+Go to https://autochess-combinator.vercel.app
+
+## Development
+
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/guastallaigor/autochess-combinator/issues)
+
+> **Note**: Contributions are very welcomed, however is very important to open a new issue using the issue template **before** you start working on anything, so we can discuss it before hand
+
+Fork the project and enter this commands in your terminal
+
+```sh
+$ git clone https://github.com/YOUR_GITHUB_USERNAME/autochess-combinator.git
+$ cd autochess-combinator
+$ yarn
+$ yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<a href="https://www.buymeacoffee.com/guastallaigor" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<div align="center">
+  <p>
+    <a href="https://vercel.com/?utm_source=hotsapi" target="_blank" rel="noopener">
+      <img src="./.github/powered-by-vercel.svg" width="175" alt="Powered by Vercel" />
+    </a>
+  </p>
+</div>
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[MIT](https://github.com/guastallaigor/autochess-combinator/blob/master/LICENSE) © 2020

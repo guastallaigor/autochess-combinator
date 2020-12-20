@@ -66,7 +66,7 @@ const Home = ({ data }) => {
           <div tw="text-xs flex flex-col flex-wrap items-center justify-center mt-6 leading-normal">
             <span>This is an unofficial project</span>
             <span>
-              I do not work or am I affiliated with Auto Chess or Drodo and
+              I do not work or am I affiliated with Auto Chess, Drodo or
               Dragonest Co.Ltd
             </span>
             <span tw="ml-1">
@@ -89,43 +89,20 @@ const Home = ({ data }) => {
 };
 
 export const getStaticProps = async () => {
-  // const instance = axios.create({
-  //   baseURL: "https://website-api.dragonest.com",
-  //   // timeout: 1000,
-  //   headers: {
-  //     accept: "application/json, text/plain, */*",
-  //     "accept-language": "en",
-  //     appcode: "e52b47a8c88",
-  //     "sec-fetch-dest": "empty",
-  //     "sec-fetch-mode": "cors",
-  //     "sec-fetch-site": "cross-site",
-  //   },
-  // });
-  // const time = new Date().getTime();
-  // const url = `/resources?menu_mark=chessInformation&per-page=999&page=1&appcode=e52b47a8c88&lang=en&_t=${time}`;
-  // let autochess = null;
-  // try {
-  //   const { data } = await instance({
-  //     referrer: "http://ac.dragonest.com/",
-  //     referrerPolicy: "strict-origin-when-cross-origin",
-  //     method: "GET",
-  //     url,
-  //     mode: "cors",
-  //     credentials: "omit",
-  //     body: null,
-  //   });
-  //   autochess = data && data.data && data.data.list;
-  // } catch (error) {
-  //   console.error(error);
-  // }
-  const data = await import("../bkp.json");
-  // const data = await import("../example.json");
+  const data = await import("../base-request.json");
 
   return {
     props: {
-      data: data.data.list,
+      data: data.data.list.sort((a, b) => {
+        if (a.fields_data.category[0] < b.fields_data.category[0]) {
+          return -1;
+        }
+        if (a.fields_data.category[0] > b.fields_data.category[0]) {
+          return 1;
+        }
+        return 0;
+      }),
     },
-    revalidate: 2629746,
   };
 };
 

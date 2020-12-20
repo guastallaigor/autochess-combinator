@@ -76,7 +76,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="msapplication-TileColor" content="#da532c" />
-          <meta charset="utf-8" />
+          <meta charSet="utf-8" />
           <meta
             name="keywords"
             content="Auto Chess,Auto Chess strategies,AutoChess,Auto Chess PC version,Auto Chess mobile game,Auto Chess Combinator,AutoChessCombinator"
@@ -86,7 +86,7 @@ export default class MyDocument extends Document {
           <meta
             hid="description"
             name="description"
-            content="Website that shows information for every chess peace in Auto Chess (Epic Games) and let you make chess peaces combinations as much as you want!"
+            content="Get information about every chess peace in Auto Chess (Epic Games) and make chess combinations as much as you want!"
           />
           <meta name="robots" content="index,follow" />
           <meta property="og:type" content="website" />
@@ -97,7 +97,7 @@ export default class MyDocument extends Document {
           <meta property="og:title" content="Auto Chess Combinator" />
           <meta
             property="og:description"
-            content="Website that shows information for every chess peace in Auto Chess (Epic Games) and let you make chess peaces combinations as much as you want!"
+            content="Get information about every chess peace in Auto Chess (Epic Games) and make chess combinations as much as you want!"
           />
           <meta property="og:image" content="/android-chrome-512x512.png" />
           <meta property="og:site_name" content="Auto Chess Combinator" />
