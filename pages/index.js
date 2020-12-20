@@ -1,9 +1,13 @@
 import tw from "twin.macro";
+import { useState } from "react";
 import FrontCard from "../components/front-card";
+import EmptyCard from "../components/empty-card";
 import Github from "../components/github";
 // import axios from "axios";
 
 const Home = ({ data }) => {
+  const [selected, setSelected] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
   return (
     <section tw="flex flex-col justify-center items-center">
       <Github />
@@ -14,14 +18,40 @@ const Home = ({ data }) => {
           <span tw="block xl:inline">Combinator</span>
         </h1>
       </header>
-      <main tw="max-w-6xl w-full my-16">
-        <div tw="grid h-full gap-7 justify-items-center" className="grid-cols">
-          {data.map((it) => (
-            <FrontCard fieldsData={it.fields_data} key={it.resource_code} />
-          ))}
+      <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap my-6">
+        <div tw="lg:w-3/4 w-full lg:pl-6">
+          <h2 tw="mb-6 text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
+            Chess Peaces
+          </h2>
+          <div className="max-h-grid" tw="lg:overflow-y-auto">
+            <div
+              tw="grid h-full gap-7 justify-items-center"
+              className="grid-cols"
+            >
+              {data.map((it) => (
+                <FrontCard fieldsData={it.fields_data} key={it.resource_code} />
+              ))}
+            </div>
+          </div>
+        </div>
+        <div tw="lg:w-1/4 w-full mt-6 lg:mt-0">
+          <h2 tw="mb-6 text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
+            Combinator
+            <span tw="text-base"></span>
+          </h2>
+          <div className="max-h-grid" tw="lg:overflow-y-auto">
+            <div
+              tw="grid h-full gap-7 lg:gap-x-0 lg:gap-y-7 justify-items-center"
+              className="grid-cols"
+            >
+              {selected.map((it, idx) => (
+                <EmptyCard key={idx} />
+              ))}
+            </div>
+          </div>
         </div>
       </main>
-      <footer tw="w-full py-8">
+      <footer tw="w-full py-6 px-6 lg:px-0">
         <div tw="text-center text-gray-200 font-bold">
           <a
             href="https://github.com/guastallaigor"
@@ -89,7 +119,8 @@ export const getStaticProps = async () => {
   // } catch (error) {
   //   console.error(error);
   // }
-  const data = await import("../example.json");
+  const data = await import("../bkp.json");
+  // const data = await import("../example.json");
 
   return {
     props: {

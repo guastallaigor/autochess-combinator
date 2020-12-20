@@ -5,21 +5,14 @@ const getFromArrayOrString = (payload) => {
   return Array.isArray(payload) && payload.length ? payload[0] : payload;
 };
 
-const getCardCategoryIconImage = (cardCategory) => {
-  const categoryIcon = getFromArrayOrString(cardCategory);
-  return categoryIcon
-    ? `/chess-icons/${categoryIcon.toLowerCase()}.png`
+const getImage = (payload) => {
+  const icon = getFromArrayOrString(payload);
+  return icon
+    ? `/chess-icons/${icon.toLowerCase().trim()}.png`
     : "/chess-icons/none.png";
 };
 
-const getCardTypeIconImage = (cardType) => {
-  const typeIcon = getFromArrayOrString(cardType);
-  return typeIcon
-    ? `/chess-icons/${typeIcon.toLowerCase()}.png`
-    : "/chess-icons/none.png";
-};
-
-const prefixMap = `flex flex-col flex-nowrap transition-all duration-300 ease-in-out cursor-pointer hover:shadow-xl relative top-0 hover:-top-2 hover:opacity-80 w-48 overflow-hidden rounded-lg bg-gradient-to-r`;
+const prefixMap = `flex flex-col flex-nowrap transition-all duration-300 ease-in-out cursor-pointer hover:shadow-xl relative top-0 hover:top-2 hover:opacity-80 w-48 overflow-hidden rounded-lg bg-gradient-to-r`;
 const styleMap = {
   Common: tw`${prefixMap} from-gray-200 to-gray-400`,
   default: tw`${prefixMap} from-gray-200 to-gray-400`,
@@ -61,7 +54,7 @@ const FrontCard = ({ fieldsData }) => {
               return (
                 <Image
                   key={category + idx}
-                  src={getCardCategoryIconImage(category)}
+                  src={getImage(category)}
                   alt="Chess Icon Category Image"
                   layout="fixed"
                   tw="overflow-hidden"
@@ -75,7 +68,7 @@ const FrontCard = ({ fieldsData }) => {
         ) : (
           <div tw="bg-gray-900 absolute h-9 w-10 top-1 left-0 rounded-full text-center">
             <Image
-              src={getCardCategoryIconImage(fieldsData.category)}
+              src={getImage(fieldsData.category)}
               alt="Chess Icon Category Image"
               layout="fixed"
               width={32}
@@ -85,11 +78,15 @@ const FrontCard = ({ fieldsData }) => {
           </div>
         )}
         <div tw="flex flex-col flex-1 text-center text-sm items-center font-medium">
-          <div tw="bg-gray-900 w-full text-gray-100 py-1">
-            {fieldsData.category.length
-              ? fieldsData.category.join(", ")
-              : "None"}
-          </div>
+          {fieldsData.category.length > 1 ? (
+            <div tw="bg-gray-900 w-full text-xs text-gray-100 py-2">
+              {fieldsData.category.join(", ")}
+            </div>
+          ) : (
+            <div tw="bg-gray-900 w-full text-gray-100 py-1">
+              {fieldsData.category.length ? fieldsData.category : "None"}
+            </div>
+          )}
           <div tw="bg-yellow-700 w-full text-white py-1">
             {fieldsData.cardType.length
               ? fieldsData.cardType.join(", ")
@@ -98,7 +95,7 @@ const FrontCard = ({ fieldsData }) => {
         </div>
         <div tw="bg-yellow-700 absolute right-0 bottom-1 rounded-full text-center">
           <Image
-            src={getCardTypeIconImage(fieldsData.cardType)}
+            src={getImage(fieldsData.cardType)}
             alt="Chess Icon Type Image"
             layout="fixed"
             width={32}
