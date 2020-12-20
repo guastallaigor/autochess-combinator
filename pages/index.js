@@ -3,14 +3,48 @@ import { useState } from "react";
 import FrontCard from "../components/front-card";
 import EmptyCard from "../components/empty-card";
 import Github from "../components/github";
-// import axios from "axios";
 
 const Home = ({ data }) => {
-  const [selected, setSelected] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const payload = Array.from(Array(10).keys());
+  const [selected, setSelected] = useState(payload);
+
+  const handleSelect = (fieldsData) => {
+    let foundIndex = selected.findIndex(
+      (it) => typeof it === "object" && it.name === fieldsData.name
+    );
+    if (foundIndex < 0) {
+      foundIndex = selected.findIndex(
+        (it) => typeof it === "number" || !it.name
+      );
+
+      if (foundIndex) {
+        selected.splice(foundIndex, 1);
+      } else {
+        selected.shift();
+      }
+
+      setSelected(
+        [
+          {
+            ...fieldsData,
+          },
+          ...selected,
+        ].sort((a, b) => {
+          if (typeof a === "object" && a.category[0] < b.category[0]) {
+            return -1;
+          }
+          if (typeof a === "object" && a.category[0] > b.category[0]) {
+            return 1;
+          }
+          return 0;
+        })
+      );
+    }
+  };
 
   return (
     <section tw="flex flex-col justify-center items-center">
-      <Github />
+      {false && <Github />}
       <header>
         <h1 tw="mt-6 text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-600 animate-pulse">
           <span tw="block xl:inline">Auto Chess</span>
@@ -19,7 +53,7 @@ const Home = ({ data }) => {
         </h1>
       </header>
       <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap my-6">
-        <div tw="lg:w-3/4 w-full lg:pl-6">
+        <div tw="lg:w-3/4 w-full lg:pl-6 lg:pr-16">
           <h2 tw="mb-6 text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
             Chess Peaces
           </h2>
@@ -29,7 +63,12 @@ const Home = ({ data }) => {
               className="grid-cols"
             >
               {data.map((it) => (
-                <FrontCard fieldsData={it.fields_data} key={it.resource_code} />
+                <FrontCard
+                  title="Click to select"
+                  fieldsData={it.fields_data}
+                  onSelect={handleSelect}
+                  key={it.resource_code}
+                />
               ))}
             </div>
           </div>
@@ -44,9 +83,18 @@ const Home = ({ data }) => {
               tw="grid h-full gap-7 lg:gap-x-0 lg:gap-y-7 justify-items-center"
               className="grid-cols"
             >
-              {selected.map((it, idx) => (
-                <EmptyCard key={idx} />
-              ))}
+              {selected.map((fieldsData, idx) => {
+                return typeof fieldsData === "object" ? (
+                  <FrontCard
+                    title="Click to unselect"
+                    fieldsData={fieldsData}
+                    onSelect={handleSelect}
+                    key={idx}
+                  />
+                ) : (
+                  <EmptyCard key={idx} />
+                );
+              })}
             </div>
           </div>
         </div>

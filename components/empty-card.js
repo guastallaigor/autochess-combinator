@@ -1,6 +1,6 @@
 import tw from "twin.macro";
 
-const EmptyCard = ({ fieldsData }) => {
+const EmptyCard = () => {
   return (
     <div
       tw="flex flex-col flex-nowrap

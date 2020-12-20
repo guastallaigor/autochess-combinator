@@ -20,9 +20,13 @@ const styleMap = {
 const getStyleName = ({ quality }) => styleMap[quality] || styleMap.default;
 const Container = styled.div(getStyleName);
 
-const FrontCard = ({ fieldsData }) => {
+const FrontCard = ({ fieldsData, title, onSelect }) => {
   return (
-    <Container quality={getFromArrayOrString(fieldsData.cardQuality)}>
+    <Container
+      quality={getFromArrayOrString(fieldsData.cardQuality)}
+      title={title}
+      onClick={() => onSelect(fieldsData)}
+    >
       <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white mb-3">
         <div tw="font-semibold text-gray-700 truncate text-sm">
           {fieldsData.name}
