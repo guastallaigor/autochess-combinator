@@ -7,11 +7,8 @@
 </p>
 
 > **Note:**
-
 > This is an unofficial project.
-
-> I do not work or am I affiliated with Auto Chess, Drodo or Dragonest Co.Ltd
-
+> I do not work or am I affiliated with Auto Chess, Drodo or Dragonest Co.Ltd.
 > For more information about the game, visit [Auto Chess Official Website](https://ac.dragonest.com/)
 
 ## Usage
@@ -37,7 +34,7 @@ $ yarn dev
 
 <a href="https://www.buymeacoffee.com/guastallaigor" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-<div align="center">
+<div>
   <p>
     <a href="https://vercel.com/?utm_source=hotsapi" target="_blank" rel="noopener">
       <img src="./.github/powered-by-vercel.svg" width="175" alt="Powered by Vercel" />
@@ -47,4 +44,4 @@ $ yarn dev
 
 ## License
 
-[MIT](https://github.com/guastallaigor/autochess-combinator/blob/master/LICENSE) © 2020
+MIT © [guastallaigor](https://github.com/guastallaigor/autochess-combinator/blob/master/LICENSE) 2020
