@@ -1,4 +1,8 @@
-module.exports = {
+const withPWA = require("next-pwa");
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+  },
   images: {
     domains: ["static.ilongyuan.cn"],
   },
@@ -10,4 +14,4 @@ module.exports = {
 
     return config;
   },
-};
+});

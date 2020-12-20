@@ -70,8 +70,7 @@ const Home = ({ data }) => {
               Dragonest Co.Ltd
             </span>
             <span tw="ml-1">
-              For more information about the game, visit their official website
-              by clicking
+              For more information about the game, visit
               <a
                 href="https://ac.dragonest.com/"
                 rel="noreferrer noopener"
@@ -79,7 +78,7 @@ const Home = ({ data }) => {
                 aria-label="Official Website Link"
                 target="_blank"
               >
-                here
+                Auto Chess Official Website
               </a>
             </span>
           </div>
