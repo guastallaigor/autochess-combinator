@@ -31,7 +31,7 @@ const FrontCard = ({ fieldsData }) => {
   return (
     <Container quality={getFromArrayOrString(fieldsData.cardQuality)}>
       <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white mb-3">
-        <div tw="font-medium text-gray-700 truncate text-sm">
+        <div tw="font-semibold text-gray-700 truncate text-sm">
           {fieldsData.name}
         </div>
         <div tw="flex flex-row flex-nowrap items-center">
@@ -84,19 +84,19 @@ const FrontCard = ({ fieldsData }) => {
             />
           </div>
         )}
-        <div tw="flex flex-col flex-1 text-center text-sm items-center">
+        <div tw="flex flex-col flex-1 text-center text-sm items-center font-medium">
           <div tw="bg-gray-900 w-full text-gray-100 py-1">
             {fieldsData.category.length
               ? fieldsData.category.join(", ")
               : "None"}
           </div>
-          <div tw="bg-yellow-600 w-full text-gray-100 py-1">
+          <div tw="bg-yellow-700 w-full text-white py-1">
             {fieldsData.cardType.length
               ? fieldsData.cardType.join(", ")
               : "None"}
           </div>
         </div>
-        <div tw="bg-yellow-600 absolute right-0 bottom-1 rounded-full text-center">
+        <div tw="bg-yellow-700 absolute right-0 bottom-1 rounded-full text-center">
           <Image
             src={getCardTypeIconImage(fieldsData.cardType)}
             alt="Chess Icon Type Image"
