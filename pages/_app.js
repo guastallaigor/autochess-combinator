@@ -32,7 +32,7 @@ const App = ({ Component, pageProps }) => (
       <link rel="canonical" href="https://autochess-combinator.vercel.app" />
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta charset="utf-8" />
       <meta
@@ -74,12 +74,6 @@ const App = ({ Component, pageProps }) => (
     </Head>
     <GlobalStyles />
     <Component {...pageProps} />
-    <noscript>
-      <strong>
-        We're sorry but Auto Chess Combinator doesn't work properly without
-        JavaScript enabled. Please enable it to continue.
-      </strong>
-    </noscript>
   </>
 );
 
