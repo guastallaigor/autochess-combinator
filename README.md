@@ -13,7 +13,7 @@
 
 ## Usage
 
-Recommended resolution for v0.1.0: >= 1024 x 768
+Recommended resolution for `v0.1.0`: >= 1024 x 768
 
 Go to https://autochess-combinator.vercel.app
 
