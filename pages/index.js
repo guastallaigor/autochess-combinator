@@ -22,10 +22,10 @@ const Home = ({ data }) => {
     return image || "/druid.png";
   };
 
-  const prefixMap = `flex flex-col flex-nowrap cursor-pointer hover:shadow-xl hover:translate-y-3 w-48 p-1 rounded-lg`;
+  const prefixMap = `flex flex-col flex-nowrap transition-all duration-300 ease-in-out cursor-pointer hover:shadow-xl relative top-0 hover:-top-2 hover:opacity-80 w-48 overflow-hidden rounded-lg bg-gradient-to-r`;
   const styleMap = {
-    Common: tw`${prefixMap} bg-gray-100`,
-    default: tw`${prefixMap} bg-gray-100`,
+    Common: tw`${prefixMap} from-gray-200 to-gray-400`,
+    default: tw`${prefixMap} from-gray-200 to-gray-400`,
   };
   const getStyleName = ({ quality }) => styleMap[quality] || styleMap.default;
   const Container = styled.div(getStyleName);
@@ -39,7 +39,7 @@ const Home = ({ data }) => {
               quality={getFromArrayOrString(it.fields_data.cardQuality)}
               key={it.resource_code}
             >
-              <div tw="flex flex-row flex-nowrap items-center justify-between p-2">
+              <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white mb-3">
                 <span tw="font-medium text-gray-700">
                   {it.fields_data.name}
                 </span>
@@ -52,7 +52,9 @@ const Home = ({ data }) => {
                     height={18}
                     quality={70}
                   />
-                  <span tw="pl-1">{it.fields_data.cardExpend}</span>
+                  <span tw="pl-1 text-yellow-400">
+                    {it.fields_data.cardExpend}
+                  </span>
                 </div>
               </div>
               <Image
@@ -63,15 +65,13 @@ const Home = ({ data }) => {
                 height={299.33}
                 quality={70}
               />
-              <div tw="flex flex-row flex-nowrap relative justify-center mt-4 rounded-3xl">
-                <div
-                  tw="bg-gray-900 absolute top-1 w-10 left-0 rounded-full text-center"
-                  className="h-first"
-                >
+              <div tw="flex flex-row flex-nowrap relative justify-center mt-3">
+                <div tw="bg-gray-900 absolute h-9 w-10 top-1 left-0 rounded-full text-center">
                   <Image
                     src={getCardTypeIconImage(it.fields_data.cardType)}
                     alt="Chess Icon image"
                     layout="fixed"
+                    tw="overflow-hidden"
                     width={32}
                     height={32}
                     quality={70}
