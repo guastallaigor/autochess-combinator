@@ -119,7 +119,7 @@ a {
 
 .grid-cols {
   grid-template-columns: repeat(auto-fit, minmax(192px, 1fr));
-  grid-auto-rows: 326px;
+  grid-auto-rows: 312px;
 }
 
 img {
