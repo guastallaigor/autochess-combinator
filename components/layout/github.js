@@ -34,9 +34,6 @@ const Github = () => (
       </svg>
     </a>
     <style jsx>{`
-      .github-corner {
-        background: var(--text);
-      }
       .github-corner:hover .octo-arm {
         animation: octocat-wave 560ms ease-in-out;
       }
