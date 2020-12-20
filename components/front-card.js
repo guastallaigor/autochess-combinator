@@ -7,12 +7,16 @@ const getFromArrayOrString = (payload) => {
 
 const getCardCategoryIconImage = (cardCategory) => {
   const categoryIcon = getFromArrayOrString(cardCategory);
-  return categoryIcon ? `/${categoryIcon.toLowerCase()}.png` : "/none.png";
+  return categoryIcon
+    ? `/chess-icons/${categoryIcon.toLowerCase()}.png`
+    : "/chess-icons/none.png";
 };
 
 const getCardTypeIconImage = (cardType) => {
   const typeIcon = getFromArrayOrString(cardType);
-  return typeIcon ? `/${typeIcon.toLowerCase()}.png` : "/none.png";
+  return typeIcon
+    ? `/chess-icons/${typeIcon.toLowerCase()}.png`
+    : "/chess-icons/none.png";
 };
 
 const prefixMap = `flex flex-col flex-nowrap transition-all duration-300 ease-in-out cursor-pointer hover:shadow-xl relative top-0 hover:-top-2 hover:opacity-80 w-48 overflow-hidden rounded-lg bg-gradient-to-r`;
@@ -32,7 +36,7 @@ const FrontCard = ({ fieldsData }) => {
         </div>
         <div tw="flex flex-row flex-nowrap items-center">
           <Image
-            src="/coin.png"
+            src="/chess-icons/coin.png"
             alt="Card image"
             layout="fixed"
             width={18}
