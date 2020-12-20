@@ -50,7 +50,7 @@ const Home = ({ data }) => {
       <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap my-6">
         <div tw="lg:w-3/4 w-full lg:pl-6 lg:pr-16">
           <h2 tw="mb-6 text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
-            Chess Peaces
+            Chess Pieces
           </h2>
           <div className="max-h-grid" tw="lg:overflow-y-auto">
             <div

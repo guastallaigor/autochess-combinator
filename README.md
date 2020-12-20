@@ -3,7 +3,7 @@
   <h1>Auto Chess Combinator</h1>
 </div>
 <p align="center">
-  Get information about every chess peace in Auto Chess (Epic Games) and make chess combinations as much as you want!
+  Get information about every chess piece in Auto Chess (Epic Games) and make chess combinations as much as you want!
 </p>
 
 > **Note:**

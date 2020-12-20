@@ -84,7 +84,7 @@ export default class MyDocument extends Document {
           <meta
             hid="description"
             name="description"
-            content="Get information about every chess peace in Auto Chess (Epic Games) and make chess combinations as much as you want!"
+            content="Get information about every chess piece in Auto Chess (Epic Games) and make chess combinations as much as you want!"
           />
           <meta name="robots" content="index,follow" />
           <meta property="og:type" content="website" />
@@ -95,7 +95,7 @@ export default class MyDocument extends Document {
           <meta property="og:title" content="Auto Chess Combinator" />
           <meta
             property="og:description"
-            content="Get information about every chess peace in Auto Chess (Epic Games) and make chess combinations as much as you want!"
+            content="Get information about every chess piece in Auto Chess (Epic Games) and make chess combinations as much as you want!"
           />
           <meta property="og:image" content="/android-chrome-512x512.png" />
           <meta property="og:site_name" content="Auto Chess Combinator" />
