@@ -65,7 +65,7 @@ const Home = ({ data }) => {
             }
           : null,
         Insectoid: hasAtLeastTwo
-          ? { text: "Insectoid", value: value === 3 ? 2 : value }
+          ? { text: "Insectoid", value: getAnotherTwoValue }
           : null,
         Cave: hasAtLeastTwo ? { text: "Cave", value: getTwoValue } : null,
         Demon: hasAtLeastOne
@@ -76,7 +76,7 @@ const Home = ({ data }) => {
             }
           : null,
         Divinity: hasAtLeastOne
-          ? { text: "Divinity", value: value === 3 ? 2 : value > 4 ? 4 : value }
+          ? { text: "Divinity", value: getAnotherTwoValue }
           : null,
         Dragon: hasAtLeastThree
           ? { text: "Dragon", value: value === 4 ? 3 : value > 5 ? 5 : value }
@@ -102,8 +102,10 @@ const Home = ({ data }) => {
               value:
                 value === 4 || value === 5
                   ? 3
-                  : value === 7 || value === 8 || value > 9
+                  : value === 7 || value === 8
                   ? 6
+                  : value > 9
+                  ? 9
                   : value,
             }
           : null,
@@ -166,8 +168,10 @@ const Home = ({ data }) => {
       const getNineValue =
         value === 4 || value === 5
           ? 3
-          : value === 7 || value === 8 || value > 9
+          : value === 7 || value === 8
           ? 6
+          : value > 9
+          ? 9
           : value;
       const objectToPush = {
         Druid: hasAtLeastTwo
