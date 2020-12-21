@@ -95,16 +95,22 @@ img {
 .max-h-grid {
   max-height: 100%;
 }
-/* 
-.grid-center > div > div {
-  justify-items: center !important;
-  justify-content: center !important;
-  flex-direction: row !important;
-  display: flex !important;
-} */
 
-@media (min-width: 1024px) {
+.height-cards {
+  height: auto;
+}
+
+@media only screen and (min-width: 1024px) {
   .max-h-grid {
     max-height: calc(100vh - 270px);
+  }
+  .height-cards {
+    height: calc(100vh - 180px);
+  }
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1535px) {
+  .height-cards {
+    height: 410px;
   }
 }

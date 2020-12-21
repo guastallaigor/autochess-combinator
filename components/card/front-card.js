@@ -30,7 +30,7 @@ const FrontCard = ({ fieldsData, title, onCardClick, style }) => {
         ...style,
         top: style && style.top ? style.top - 5 : 0,
         width: style && style.width ? style.width - 25 : "auto",
-        left: style.left + 10,
+        left: style.left,
         height: style && style.height ? style.height - 30 : "auto",
         opacity: fieldsData.banned && 0.5,
         cursor: fieldsData.banned && "not-allowed",
