@@ -2,18 +2,8 @@ import tw from "twin.macro";
 
 const FooterWrapper = () => {
   return (
-    <footer tw="w-full py-6 px-6 lg:px-0">
+    <footer tw="w-full h-32 py-6 px-6 lg:px-0 flex items-end justify-center">
       <div tw="text-center text-gray-200 font-bold">
-        <a
-          href="https://github.com/guastallaigor"
-          rel="noreferrer noopener"
-          tw="hover:opacity-75 transition-all duration-300 ease-in-out hover:text-yellow-600"
-          name="github"
-          aria-label="Github Link"
-          target="_blank"
-        >
-          &copy; {new Date().getFullYear()} guastallaigor
-        </a>
         <div tw="text-xs flex flex-col flex-wrap items-center justify-center mt-6 leading-normal">
           <span>This is an unofficial project</span>
           <span>

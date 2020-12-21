@@ -20,12 +20,18 @@ const getNameStyle = ({ banned }) =>
   banned ? tw`${prefixName} text-red-500` : tw`${prefixName} text-gray-700`;
 const Name = styled.div(getNameStyle);
 
-const FrontCard = ({ fieldsData, title, onCardClick }) => {
+const FrontCard = ({ fieldsData, title, onCardClick, style }) => {
   return (
     <Container
+      className="front-card"
       quality={getFromArrayOrString(fieldsData.cardQuality)}
       title={fieldsData.banned ? "This card is banned" : title}
       style={{
+        ...style,
+        top: style && style.top ? style.top - 5 : 0,
+        width: style && style.width ? style.width - 25 : "auto",
+        left: style.left + 10,
+        height: style && style.height ? style.height - 30 : "auto",
         opacity: fieldsData.banned && 0.5,
         cursor: fieldsData.banned && "not-allowed",
       }}

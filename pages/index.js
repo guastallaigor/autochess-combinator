@@ -1,7 +1,10 @@
 import tw from "twin.macro";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { FixedSizeGrid as Grid } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 import FrontCard from "../components/card/front-card";
+import Cell from "../components/card/cell";
 import EmptyCard from "../components/card/empty-card";
 import Github from "../components/layout/github";
 import FooterWrapper from "../components/layout/footer-wrapper";
@@ -9,6 +12,7 @@ import HeaderWrapper from "../components/layout/header-wrapper";
 import { base, categories, types } from "../assets/static";
 import { getSortedArrayByCategory } from "../utils/index";
 import { getImage } from "../utils/index";
+import { MAX_ITEMS_PER_ROW } from "../utils/constants";
 
 const Home = ({ data }) => {
   const payload = Array.from(Array(10).keys()).map((it) => ({ ...base }));
@@ -231,6 +235,11 @@ const Home = ({ data }) => {
     return localBuffs;
   };
 
+  const getItemKey = ({ columnIndex, data, rowIndex }) => {
+    const item = data.copiedData[columnIndex + rowIndex * MAX_ITEMS_PER_ROW];
+    return `${item.fields_data.icon}-${columnIndex}`;
+  };
+
   const handleBuffs = () => {
     const localTypes = getTypesSelectedBufs();
     const localCategories = getCategoriesSelectedBuffs(localTypes);
@@ -296,7 +305,7 @@ const Home = ({ data }) => {
     <section tw="flex flex-col justify-center items-center">
       {false && <Github />}
       <HeaderWrapper />
-      <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap my-6">
+      <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap my-6 relative h-full">
         <div tw="lg:w-3/4 w-full lg:pl-6 lg:pr-16">
           <h2 tw="text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
             Chess Pieces
@@ -355,20 +364,24 @@ const Home = ({ data }) => {
               })}
             </div>
           </div>
-          <div className="max-h-grid" tw="lg:overflow-y-auto">
-            <div
-              tw="grid h-full gap-7 justify-items-center"
-              className="grid-cols"
-            >
-              {copiedData.map((it) => (
-                <FrontCard
-                  title="Click to select"
-                  fieldsData={it.fields_data}
-                  onCardClick={handleSelect}
-                  key={it.resource_code}
-                />
-              ))}
-            </div>
+          <div tw="mx-6 h-96 lg:h-3/6 lg:mx-0 xl:h-5/6">
+            <AutoSizer className="grid-center">
+              {({ height, width }) => (
+                <Grid
+                  columnCount={MAX_ITEMS_PER_ROW}
+                  columnWidth={250}
+                  width={width}
+                  height={height}
+                  rowCount={Math.max(copiedData.length / MAX_ITEMS_PER_ROW)}
+                  rowHeight={350}
+                  itemData={{ copiedData, handleSelect }}
+                  itemKey={getItemKey}
+                  style={{ justifyItems: "center" }}
+                >
+                  {Cell}
+                </Grid>
+              )}
+            </AutoSizer>
           </div>
         </div>
         <div tw="lg:w-1/4 w-full mt-6 lg:mt-0">

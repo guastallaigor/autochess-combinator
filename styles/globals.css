@@ -95,6 +95,13 @@ img {
 .max-h-grid {
   max-height: 100%;
 }
+/* 
+.grid-center > div > div {
+  justify-items: center !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+  display: flex !important;
+} */
 
 @media (min-width: 1024px) {
   .max-h-grid {
