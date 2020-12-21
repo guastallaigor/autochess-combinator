@@ -177,7 +177,7 @@ const Home = ({ data }) => {
         Druid: hasAtLeastTwo
           ? {
               text: "Druid",
-              value: getTwoValue,
+              value: getAnotherTwoValue,
             }
           : null,
         Warrior: hasAtLeastThree
@@ -220,7 +220,7 @@ const Home = ({ data }) => {
         Priest: hasAtLeastOne
           ? { text: "Priest", value: value > 2 ? 2 : value }
           : null,
-        Mage: hasAtLeastThree ? { text: "Mage", value: getThreeValue } : null,
+        Mage: hasAtLeastThree ? { text: "Mage", value: getNineValue } : null,
         Mech: hasAtLeastThree ? { text: "Mech", value: getThreeValue } : null,
       }[element];
 
