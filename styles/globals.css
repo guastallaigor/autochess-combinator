@@ -4,6 +4,10 @@
   --scroll-track: #121b28;
   --selection-color: #ffffff;
   --selection-background: #b45309;
+  --tooltip-text-color: black;
+  --tooltip-background-color: #fffbeb;
+  --tooltip-margin: 0;
+  --tooltip-arrow-size: 6px;
 }
 
 html,

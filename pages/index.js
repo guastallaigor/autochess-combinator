@@ -1,13 +1,20 @@
 import tw from "twin.macro";
 import Image from "next/image";
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import CellChessPieces from "../components/card/cell-chess-pieces";
 import CellCombinator from "../components/card/cell-combinator";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
-import { base, categories, types } from "../assets/static";
+import Tooltip from "../components/generic/tooltip";
+import {
+  base,
+  categories,
+  types,
+  categoriesBuffs,
+  typesBuffs,
+} from "../assets/static";
 import { getSortedArrayByCategory } from "../utils/index";
 import { getImage } from "../utils/index";
 
@@ -26,33 +33,16 @@ const Home = ({ data }) => {
   const firstUpdateTypes = useRef(true);
 
   const getCategoriesSelectedBuffs = (localTypes) => {
-    const counterElements = {
-      Beast: 0,
-      Insectoid: 0,
-      Cave: 0,
-      Demon: 0,
-      Divinity: 0,
-      Dragon: 0,
-      Egersis: 0,
-      Human: 0,
-      Dwarf: 0,
-      Feathered: 0,
-      Glacier: 0,
-      Goblin: 0,
-      Kira: 0,
-      Marine: 0,
-      Spirits: 0,
-    };
-
-    Object.keys(counterElements).forEach((element) => {
-      counterElements[element] = selected.filter((it) =>
+    Object.keys(categoriesBuffs).forEach((element) => {
+      categoriesBuffs[element].count = selected.filter((it) =>
         it.category.includes(element)
       ).length;
     });
 
     let localBuffs = [];
-    Object.keys(counterElements).forEach((element) => {
-      const value = counterElements[element];
+    Object.keys(categoriesBuffs).forEach((element) => {
+      const value = categoriesBuffs[element].count;
+      const buff = categoriesBuffs[element].buff;
       const hasAtLeastOne = value >= 1;
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
@@ -67,39 +57,47 @@ const Home = ({ data }) => {
           ? {
               text: "Beast",
               value: getTwoValue,
+              buff,
             }
           : null,
         Insectoid: hasAtLeastTwo
-          ? { text: "Insectoid", value: getAnotherTwoValue }
+          ? { text: "Insectoid", value: getAnotherTwoValue, buff }
           : null,
-        Cave: hasAtLeastTwo ? { text: "Cave", value: getTwoValue } : null,
+        Cave: hasAtLeastTwo ? { text: "Cave", value: getTwoValue, buff } : null,
         Demon: hasAtLeastOne
           ? {
               text: "Demon",
               value,
               penalty: value > 1 ? !witcher || witcher.demonPenalty : false,
+              buff,
             }
           : null,
         Divinity: hasAtLeastOne
-          ? { text: "Divinity", value: getAnotherTwoValue }
+          ? { text: "Divinity", value: getAnotherTwoValue, buff }
           : null,
         Dragon: hasAtLeastThree
-          ? { text: "Dragon", value: value === 4 ? 3 : value > 5 ? 5 : value }
+          ? {
+              text: "Dragon",
+              value: value === 4 ? 3 : value > 5 ? 5 : value,
+              buff,
+            }
           : null,
         Egersis: hasAtLeastTwo
           ? {
               text: "Egersis",
               value: getTwoValue,
+              buff,
             }
           : null,
         Human: hasAtLeastThree
           ? {
               text: "Human",
               value: getThreeValue,
+              buff,
             }
           : null,
         Dwarf: hasAtLeastOne
-          ? { text: "Dwarf", value: value > 2 ? 2 : value }
+          ? { text: "Dwarf", value: value > 2 ? 2 : value, buff }
           : null,
         Feathered: hasAtLeastThree
           ? {
@@ -112,20 +110,23 @@ const Home = ({ data }) => {
                   : value > 9
                   ? 9
                   : value,
+              buff,
             }
           : null,
-        Glacier: hasAtLeastTwo ? { text: "Glacier", value: getTwoValue } : null,
+        Glacier: hasAtLeastTwo
+          ? { text: "Glacier", value: getTwoValue, buff }
+          : null,
         Goblin: hasAtLeastThree
-          ? { text: "Goblin", value: getThreeValue }
+          ? { text: "Goblin", value: getThreeValue, buff }
           : null,
         Kira: hasAtLeastTwo
-          ? { text: "Kira", value: value > 2 ? 2 : value }
+          ? { text: "Kira", value: value > 2 ? 2 : value, buff }
           : null,
         Marine: hasAtLeastTwo
-          ? { text: "Marine", value: getAnotherTwoValue }
+          ? { text: "Marine", value: getAnotherTwoValue, buff }
           : null,
         Spirits: hasAtLeastTwo
-          ? { text: "Spirits", value: getAnotherTwoValue }
+          ? { text: "Spirits", value: getAnotherTwoValue, buff }
           : null,
       }[element];
 
@@ -138,30 +139,16 @@ const Home = ({ data }) => {
   };
 
   const getTypesSelectedBufs = () => {
-    const counterElements = {
-      Druid: 0,
-      Warrior: 0,
-      Assassin: 0,
-      Shaman: 0,
-      Hunter: 0,
-      Wizard: 0,
-      Knight: 0,
-      Witcher: 0,
-      Warlock: 0,
-      Priest: 0,
-      Mage: 0,
-      Mech: 0,
-    };
-
-    Object.keys(counterElements).forEach((element) => {
-      counterElements[element] = selected.filter((it) =>
+    Object.keys(typesBuffs).forEach((element) => {
+      typesBuffs[element].count = selected.filter((it) =>
         it.cardType.includes(element)
       ).length;
     });
 
     let localBuffs = [];
-    Object.keys(counterElements).forEach((element) => {
-      const value = counterElements[element];
+    Object.keys(typesBuffs).forEach((element) => {
+      const value = typesBuffs[element].count;
+      const buff = typesBuffs[element].buff;
       const hasAtLeastOne = value >= 1;
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
@@ -183,30 +170,33 @@ const Home = ({ data }) => {
           ? {
               text: "Druid",
               value: getAnotherTwoValue,
+              buff,
             }
           : null,
         Warrior: hasAtLeastThree
           ? {
               text: "Warrior",
               value: getNineValue,
+              buff,
             }
           : null,
         Assassin: hasAtLeastThree
-          ? { text: "Assassin", value: getNineValue }
+          ? { text: "Assassin", value: getNineValue, buff }
           : null,
         Shaman: hasAtLeastTwo
-          ? { text: "Shaman", value: getAnotherTwoValue }
+          ? { text: "Shaman", value: getAnotherTwoValue, buff }
           : null,
         Hunter: hasAtLeastThree
-          ? { text: "Hunter", value: getThreeValue }
+          ? { text: "Hunter", value: getThreeValue, buff }
           : null,
         Wizard: hasAtLeastTwo
-          ? { text: "Wizard", value: getAnotherTwoValue }
+          ? { text: "Wizard", value: getAnotherTwoValue, buff }
           : null,
         Knight: hasAtLeastTwo
           ? {
               text: "Knight",
               value: getTwoValue,
+              buff,
             }
           : null,
         Witcher: hasAtLeastOne
@@ -214,19 +204,25 @@ const Home = ({ data }) => {
               text: "Witcher",
               value: value > 2 ? 2 : value,
               demonPenalty: value !== 2,
+              buff,
             }
           : null,
         Warlock: hasAtLeastTwo
           ? {
               text: "Warlock",
               value: getTwoValue,
+              buff,
             }
           : null,
         Priest: hasAtLeastOne
-          ? { text: "Priest", value: value > 2 ? 2 : value }
+          ? { text: "Priest", value: value > 2 ? 2 : value, buff }
           : null,
-        Mage: hasAtLeastThree ? { text: "Mage", value: getNineValue } : null,
-        Mech: hasAtLeastThree ? { text: "Mech", value: getThreeValue } : null,
+        Mage: hasAtLeastThree
+          ? { text: "Mage", value: getNineValue, buff }
+          : null,
+        Mech: hasAtLeastThree
+          ? { text: "Mech", value: getThreeValue, buff }
+          : null,
       }[element];
 
       if (objectToPush) {
@@ -295,7 +291,7 @@ const Home = ({ data }) => {
     setBuffs([...localCategories, ...localTypes]);
   }, [selected]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (firstUpdateCategories.current) {
       firstUpdateCategories.current = false;
       return;
@@ -304,15 +300,16 @@ const Home = ({ data }) => {
     const filteredData = data.filter((data) =>
       data.fields_data.category.some((it) => {
         const category = categoriesFilter.find(
-          (ij) => ij.text.toLowerCase() === it.toLowerCase()
+          (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
         );
         return category ? category.active : false;
       })
     );
-    setCopiedData(filteredData);
+    console.log(filteredData, ":1");
+    setCopiedData(getSortedArrayByCategory(filteredData, "fields_data"));
   }, [categoriesFilter]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (firstUpdateTypes.current) {
       firstUpdateTypes.current = false;
       return;
@@ -321,12 +318,12 @@ const Home = ({ data }) => {
     const filteredData = data.filter((data) =>
       data.fields_data.cardType.some((it) => {
         const cardType = typesFilter.find(
-          (ij) => ij.text.toLowerCase() === it.toLowerCase()
+          (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
         );
         return cardType ? cardType.active : false;
       })
     );
-    setCopiedData(filteredData);
+    setCopiedData(getSortedArrayByCategory(filteredData, "fields_data"));
   }, [typesFilter]);
 
   useEffect(() => {
@@ -441,14 +438,16 @@ const Home = ({ data }) => {
                     >
                       {buff.value}
                     </div>
-                    <Image
-                      src={getImage(buff.text)}
-                      alt="Chess Icon Image"
-                      layout="fixed"
-                      width={32}
-                      height={32}
-                      quality={70}
-                    />
+                    <Tooltip content={buff.buff} direction="bottom">
+                      <Image
+                        src={getImage(buff.text)}
+                        alt="Chess Icon Image"
+                        layout="fixed"
+                        width={32}
+                        height={32}
+                        quality={70}
+                      />
+                    </Tooltip>
                   </div>
                 );
               })}
