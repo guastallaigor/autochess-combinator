@@ -256,7 +256,6 @@ const Home = ({ data }) => {
 
   useEffect(() => {
     handleBuffs();
-    console.log(selected, ":selected");
   }, [selected]);
 
   useEffect(() => {
@@ -322,7 +321,7 @@ const Home = ({ data }) => {
       <HeaderWrapper />
       <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap xl:my-6 my-3 relative h-full items-center justify-center">
         <div
-          tw="xl:w-10/12 2xl:w-3/4 xl:max-w-5xl 2xl:max-w-8xl w-full"
+          tw="xl:w-9/12 2xl:w-7/12 3xl:w-3/4 xl:max-w-5xl 2xl:max-w-8xl w-full"
           className="height-cards"
         >
           <h2 tw="text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
@@ -382,7 +381,7 @@ const Home = ({ data }) => {
               })}
             </div>
           </div>
-          <div tw="mt-6 xl:mt-0 mx-12 xl:mx-1 2xl:mx-7 h-82 xl:h-5/6">
+          <div tw="mt-6 xl:mt-0 mx-12 xl:ml-1 xl:-mr-3 2xl:mx-7 h-82 xl:h-full">
             <AutoSizer>
               {({ height, width }) => (
                 <Grid
@@ -402,7 +401,7 @@ const Home = ({ data }) => {
           </div>
         </div>
         <div
-          tw="w-full xl:w-3/12 2xl:w-4/12 xl:max-w-xd 2xl:max-w-lg mt-6 xl:mt-0"
+          tw="w-full xl:w-3/12 2xl:w-6/12 xl:max-w-xd 2xl:max-w-lg mt-6 xl:mt-0 lg:-mt-24"
           className="height-cards"
         >
           <h2 tw="xl:mb-6 text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
@@ -434,7 +433,7 @@ const Home = ({ data }) => {
               })}
             </div>
           </div>
-          <div tw="h-80 mx-12 mt-6 xl:mx-7 2xl:mx-0 xl:mt-0 xl:h-full">
+          <div tw="h-80 mx-12 mt-6 xl:mx-7 2xl:mx-0 xl:mt-0 lg:h-full">
             <AutoSizer>
               {({ height, width }) => (
                 <Grid
