@@ -5,7 +5,7 @@ const CellCombinator = ({ rowIndex, columnIndex, data, style }) => {
   const { selected, handleUnselect } = data;
   const fieldsData =
     selected[columnIndex + rowIndex * data.maxItemsPerRowCombinator];
-  return fieldsData.name ? (
+  return fieldsData && fieldsData.name ? (
     <FrontCard
       style={style}
       title="Click to unselect"

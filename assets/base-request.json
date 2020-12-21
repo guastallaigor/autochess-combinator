@@ -3977,7 +3977,7 @@
           "armor": "0",
           "noIcon": "https://static.ilongyuan.cn/official_website/e52b47a8c88/b3dec3e5fbdf518f200dad145f87e116.png",
           "cardImg": "/chess-img/strange_egg.png",
-          "cardType": [""],
+          "cardType": ["None"],
           "category": ["Feathered"],
           "chessSkin": [],
           "lifeValue": "700",

@@ -1,11 +1,10 @@
 import tw from "twin.macro";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { FixedSizeGrid as Grid } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import CellChessPieces from "../components/card/cell-chess-pieces";
 import CellCombinator from "../components/card/cell-combinator";
-import Github from "../components/layout/github";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
 import { base, categories, types } from "../assets/static";
@@ -23,6 +22,8 @@ const Home = ({ data }) => {
   const [buffs, setBuffs] = useState([]);
   const [maxItemsPerRow, setMaxItemsPerRow] = useState(5);
   const [maxItemsPerRowCombinator, setMaxItemsPerRowCombinator] = useState(2);
+  const firstUpdateCategories = useRef(true);
+  const firstUpdateTypes = useRef(true);
 
   const getCategoriesSelectedBuffs = (localTypes) => {
     const counterElements = {
@@ -237,6 +238,7 @@ const Home = ({ data }) => {
 
   const getItemKey = ({ columnIndex, data, rowIndex }) => {
     const item = data.copiedData[columnIndex + rowIndex * data.maxItemsPerRow];
+    if (!item) return `pieces-${columnIndex}`;
     return `${item.fields_data.icon}-${columnIndex}`;
   };
 
@@ -247,24 +249,6 @@ const Home = ({ data }) => {
       item && item.icon ? item.icon : "combinator"
     }-${columnIndex}-${rowIndex}`;
   };
-
-  const handleBuffs = () => {
-    const localTypes = getTypesSelectedBufs();
-    const localCategories = getCategoriesSelectedBuffs(localTypes);
-    setBuffs([...localCategories, ...localTypes]);
-  };
-
-  useEffect(() => {
-    handleBuffs();
-  }, [selected]);
-
-  useEffect(() => {
-    const { innerWidth } = window;
-    const isXl = innerWidth >= 1280 && innerWidth < 1536;
-    const isLgAndBelow = innerWidth < 1280;
-    setMaxItemsPerRow(isXl ? 4 : 5);
-    setMaxItemsPerRowCombinator(isXl ? 1 : isLgAndBelow ? 5 : 2);
-  }, []);
 
   const handleSelect = (fieldsData) => {
     let isItemAlreadySelected = selected.find(
@@ -297,27 +281,64 @@ const Home = ({ data }) => {
 
   const toggleCategoriesFilter = (category, idx) => {
     categoriesFilter[idx].active = !categoriesFilter[idx].active;
-    const active = categoriesFilter[idx].active;
     setCategoriesFilter([...categoriesFilter]);
-    // ! WIP
-    const filteredData = copiedData.filter((data) =>
-      data.fields_data.category.some((it) => {
-        const category = categoriesFilter.find(
-          (ij) => ij.text.toLowerCase() === it.toLowerCase()
-        );
-        return category ? category.active === active : false;
-      })
-    );
-    setCopiedData(filteredData);
   };
+
   const toggleTypesFilter = (type, idx) => {
     typesFilter[idx].active = !typesFilter[idx].active;
     setTypesFilter([...typesFilter]);
   };
 
+  useEffect(() => {
+    const localTypes = getTypesSelectedBufs();
+    const localCategories = getCategoriesSelectedBuffs(localTypes);
+    setBuffs([...localCategories, ...localTypes]);
+  }, [selected]);
+
+  useLayoutEffect(() => {
+    if (firstUpdateCategories.current) {
+      firstUpdateCategories.current = false;
+      return;
+    }
+
+    const filteredData = data.filter((data) =>
+      data.fields_data.category.some((it) => {
+        const category = categoriesFilter.find(
+          (ij) => ij.text.toLowerCase() === it.toLowerCase()
+        );
+        return category ? category.active : false;
+      })
+    );
+    setCopiedData(filteredData);
+  }, [categoriesFilter]);
+
+  useLayoutEffect(() => {
+    if (firstUpdateTypes.current) {
+      firstUpdateTypes.current = false;
+      return;
+    }
+
+    const filteredData = data.filter((data) =>
+      data.fields_data.cardType.some((it) => {
+        const cardType = typesFilter.find(
+          (ij) => ij.text.toLowerCase() === it.toLowerCase()
+        );
+        return cardType ? cardType.active : false;
+      })
+    );
+    setCopiedData(filteredData);
+  }, [typesFilter]);
+
+  useEffect(() => {
+    const { innerWidth } = window;
+    const isXl = innerWidth >= 1280 && innerWidth < 1536;
+    const isLgAndBelow = innerWidth < 1280;
+    setMaxItemsPerRow(isXl ? 4 : 5);
+    setMaxItemsPerRowCombinator(isXl ? 1 : isLgAndBelow ? 5 : 2);
+  }, []);
+
   return (
     <section tw="flex flex-col justify-center items-center">
-      {false && <Github />}
       <HeaderWrapper />
       <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap xl:my-6 my-3 relative h-full items-center justify-center">
         <div
