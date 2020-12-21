@@ -41,117 +41,117 @@ const base = {
 
 const categories = [
   {
-    text: "beast",
+    text: "Beast",
     active: true,
   },
   {
-    text: "insectoid",
+    text: "Insectoid",
     active: true,
   },
   {
-    text: "cave",
+    text: "Cave",
     active: true,
   },
   {
-    text: "demon",
+    text: "Demon",
     active: true,
   },
   {
-    text: "divinity",
+    text: "Divinity",
     active: true,
   },
   {
-    text: "dragon",
+    text: "Dragon",
     active: true,
   },
   {
-    text: "egersis",
+    text: "Egersis",
     active: true,
   },
   {
-    text: "human",
+    text: "Human",
     active: true,
   },
   {
-    text: "dwarf",
+    text: "Dwarf",
     active: true,
   },
   {
-    text: "feathered",
+    text: "Feathered",
     active: true,
   },
   {
-    text: "glacier",
+    text: "Glacier",
     active: true,
   },
   {
-    text: "goblin",
+    text: "Goblin",
     active: true,
   },
   {
-    text: "kira",
+    text: "Kira",
     active: true,
   },
   {
-    text: "marine",
+    text: "Marine",
     active: true,
   },
   {
-    text: "spirits",
+    text: "Spirits",
     active: true,
   },
 ];
 const types = [
   {
-    text: "druid",
+    text: "Druid",
     active: true,
   },
   {
-    text: "warrior",
+    text: "Warrior",
     active: true,
   },
   {
-    text: "assassin",
+    text: "Assassin",
     active: true,
   },
   {
-    text: "shaman",
+    text: "Shaman",
     active: true,
   },
   {
-    text: "hunter",
+    text: "Hunter",
     active: true,
   },
   {
-    text: "wizard",
+    text: "Wizard",
     active: true,
   },
   {
-    text: "knight",
+    text: "Knight",
     active: true,
   },
   {
-    text: "witcher",
+    text: "Witcher",
     active: true,
   },
   {
-    text: "warlock",
+    text: "Warlock",
     active: true,
   },
   {
-    text: "priest",
+    text: "Priest",
     active: true,
   },
   {
-    text: "mage",
+    text: "Mage",
     active: true,
   },
   {
-    text: "mech",
+    text: "Mech",
     active: true,
   },
   {
-    text: "none",
+    text: "None",
     active: true,
   },
 ];

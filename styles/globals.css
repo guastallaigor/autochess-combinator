@@ -80,6 +80,10 @@ img {
 /* custom */
 
 .active-filter {
+  opacity: 1;
+}
+
+.inactive-filter {
   opacity: 0.5;
 }
 
