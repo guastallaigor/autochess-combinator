@@ -7,6 +7,16 @@ const HeaderWrapper = () => {
         <span tw="block xl:inline">Auto Chess</span>
         <span tw="xl:inline hidden">&nbsp;</span>
         <span tw="block xl:inline">Combinator</span>
+        <a
+          href="https://github.com/guastallaigor"
+          rel="noreferrer noopener"
+          tw="text-sm hover:opacity-75 transition-all duration-300 ease-in-out hover:text-yellow-600 lg:text-base block text-center"
+          name="github"
+          aria-label="Github Link"
+          target="_blank"
+        >
+          {new Date().getFullYear()} @guastallaigor
+        </a>
       </h1>
     </header>
   );

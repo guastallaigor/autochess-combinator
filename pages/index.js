@@ -1,8 +1,10 @@
 import tw from "twin.macro";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import FrontCard from "../components/card/front-card";
-import EmptyCard from "../components/card/empty-card";
+import { FixedSizeGrid as Grid } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+import CellChessPieces from "../components/card/cell-chess-pieces";
+import CellCombinator from "../components/card/cell-combinator";
 import Github from "../components/layout/github";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
@@ -19,6 +21,8 @@ const Home = ({ data }) => {
   const [categoriesFilter, setCategoriesFilter] = useState(categories);
   const [typesFilter, setTypesFilter] = useState(types);
   const [buffs, setBuffs] = useState([]);
+  const [maxItemsPerRow, setMaxItemsPerRow] = useState(5);
+  const [maxItemsPerRowCombinator, setMaxItemsPerRowCombinator] = useState(2);
 
   const getCategoriesSelectedBuffs = (localTypes) => {
     const counterElements = {
@@ -231,6 +235,19 @@ const Home = ({ data }) => {
     return localBuffs;
   };
 
+  const getItemKey = ({ columnIndex, data, rowIndex }) => {
+    const item = data.copiedData[columnIndex + rowIndex * data.maxItemsPerRow];
+    return `${item.fields_data.icon}-${columnIndex}`;
+  };
+
+  const getItemKeyCombinator = ({ columnIndex, data, rowIndex }) => {
+    const item =
+      data.selected[columnIndex + rowIndex * data.maxItemsPerRowCombinator];
+    return `${
+      item && item.icon ? item.icon : "combinator"
+    }-${columnIndex}-${rowIndex}`;
+  };
+
   const handleBuffs = () => {
     const localTypes = getTypesSelectedBufs();
     const localCategories = getCategoriesSelectedBuffs(localTypes);
@@ -241,6 +258,14 @@ const Home = ({ data }) => {
     handleBuffs();
   }, [selected]);
 
+  useEffect(() => {
+    const { innerWidth } = window;
+    const isXl = innerWidth >= 1280 && innerWidth < 1536;
+    const isLgAndBelow = innerWidth < 1280;
+    setMaxItemsPerRow(isXl ? 4 : 5);
+    setMaxItemsPerRowCombinator(isXl ? 1 : isLgAndBelow ? 5 : 2);
+  }, []);
+
   const handleSelect = (fieldsData) => {
     let isItemAlreadySelected = selected.find(
       (it) => it.name === fieldsData.name
@@ -249,20 +274,18 @@ const Home = ({ data }) => {
 
     const emptyItemIndexToRemove = selected.findIndex((it) => !it.name);
 
-    if (emptyItemIndexToRemove) {
+    if (emptyItemIndexToRemove > -1) {
       selected.splice(emptyItemIndexToRemove, 1);
     } else {
-      selected.shift();
+      selected.pop();
     }
 
-    setSelected(
-      getSortedArrayByCategory([
-        {
-          ...fieldsData,
-        },
-        ...selected,
-      ])
-    );
+    setSelected([
+      {
+        ...fieldsData,
+      },
+      ...selected,
+    ]);
   };
 
   const handleUnselect = (fieldsData) => {
@@ -296,14 +319,17 @@ const Home = ({ data }) => {
     <section tw="flex flex-col justify-center items-center">
       {false && <Github />}
       <HeaderWrapper />
-      <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap my-6">
-        <div tw="lg:w-3/4 w-full lg:pl-6 lg:pr-16">
-          <h2 tw="text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
+      <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap xl:my-6 my-3 relative h-full items-center justify-center">
+        <div
+          tw="xl:w-9/12 2xl:w-7/12 3xl:w-3/4 xl:max-w-5xl 2xl:max-w-8xl w-full"
+          className="height-cards"
+        >
+          <h2 tw="text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
             Chess Pieces
           </h2>
-          <div tw="w-full my-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-wrap items-center flex-row gap-5 justify-center lg:justify-start">
-              <span tw="text-base text-white lg:pl-6">Categories:</span>
+          <div tw="w-full xl:my-6 my-3 flex-col flex-nowrap flex">
+            <div tw="flex flex-wrap items-center flex-row gap-5 justify-center xl:justify-start">
+              <span tw="text-base text-white xl:pl-6">Categories:</span>
               {categoriesFilter.map((category, idx) => {
                 return (
                   <button
@@ -328,8 +354,8 @@ const Home = ({ data }) => {
                 );
               })}
             </div>
-            <div tw="flex flex-wrap items-center flex-row gap-5 mt-6 justify-center lg:justify-start">
-              <span tw="text-base text-white lg:pl-6">Types:</span>
+            <div tw="flex flex-wrap items-center flex-row gap-5 mt-6 justify-center xl:justify-start">
+              <span tw="text-base text-white xl:pl-6">Types:</span>
               {typesFilter.map((type, idx) => {
                 return (
                   <button
@@ -355,30 +381,36 @@ const Home = ({ data }) => {
               })}
             </div>
           </div>
-          <div className="max-h-grid" tw="lg:overflow-y-auto">
-            <div
-              tw="grid h-full gap-7 justify-items-center"
-              className="grid-cols"
-            >
-              {copiedData.map((it) => (
-                <FrontCard
-                  title="Click to select"
-                  fieldsData={it.fields_data}
-                  onCardClick={handleSelect}
-                  key={it.resource_code}
-                />
-              ))}
-            </div>
+          <div tw="mt-6 xl:mt-0 mx-12 xl:ml-1 xl:-mr-3 2xl:mx-7 h-82 xl:h-full">
+            <AutoSizer>
+              {({ height, width }) => (
+                <Grid
+                  columnCount={maxItemsPerRow}
+                  columnWidth={250}
+                  width={width}
+                  height={height}
+                  rowCount={Math.max(copiedData.length / maxItemsPerRow)}
+                  rowHeight={350}
+                  itemData={{ copiedData, handleSelect, maxItemsPerRow }}
+                  itemKey={getItemKey}
+                >
+                  {CellChessPieces}
+                </Grid>
+              )}
+            </AutoSizer>
           </div>
         </div>
-        <div tw="lg:w-1/4 w-full mt-6 lg:mt-0">
-          <h2 tw="mb-6 text-center lg:text-left lg:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
+        <div
+          tw="w-full xl:w-3/12 2xl:w-6/12 xl:max-w-xd 2xl:max-w-lg mt-6 xl:mt-0 lg:-mt-24"
+          className="height-cards"
+        >
+          <h2 tw="xl:mb-6 text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
             Combinator
             <span tw="text-base"></span>
           </h2>
-          <div tw="w-full my-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-wrap items-center flex-row gap-5 justify-center lg:justify-start">
-              <span tw="text-base text-white lg:pl-6">Buffs:</span>
+          <div tw="w-full my-3 xl:my-6 flex-col flex-nowrap flex">
+            <div tw="flex flex-wrap items-center flex-row gap-5 justify-center xl:justify-start">
+              <span tw="text-base text-white xl:pl-6">Buffs:</span>
               {buffs.map((buff, idx) => {
                 return (
                   <div key={`${buff.text}${idx}`} tw="h-8 relative">
@@ -401,24 +433,29 @@ const Home = ({ data }) => {
               })}
             </div>
           </div>
-          <div className="max-h-grid" tw="lg:overflow-y-auto">
-            <div
-              tw="grid h-full gap-7 lg:gap-x-0 lg:gap-y-7 justify-items-center"
-              className="grid-cols"
-            >
-              {selected.map((fieldsData, idx) => {
-                return fieldsData.name ? (
-                  <FrontCard
-                    title="Click to unselect"
-                    fieldsData={fieldsData}
-                    onCardClick={handleUnselect}
-                    key={fieldsData.icon}
-                  />
-                ) : (
-                  <EmptyCard key={idx + parseInt(Math.random() * 9999, 10)} />
-                );
-              })}
-            </div>
+          <div tw="h-80 mx-12 mt-6 xl:mx-7 2xl:mx-0 xl:mt-0 lg:h-full">
+            <AutoSizer>
+              {({ height, width }) => (
+                <Grid
+                  columnCount={maxItemsPerRowCombinator}
+                  columnWidth={250}
+                  width={width}
+                  height={height}
+                  rowCount={Math.max(
+                    selected.length / maxItemsPerRowCombinator
+                  )}
+                  rowHeight={350}
+                  itemData={{
+                    selected,
+                    handleUnselect,
+                    maxItemsPerRowCombinator,
+                  }}
+                  itemKey={getItemKeyCombinator}
+                >
+                  {CellCombinator}
+                </Grid>
+              )}
+            </AutoSizer>
           </div>
         </div>
       </main>
