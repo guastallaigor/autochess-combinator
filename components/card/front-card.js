@@ -1,16 +1,6 @@
 import tw, { styled } from "twin.macro";
 import Image from "next/image";
-
-const getFromArrayOrString = (payload) => {
-  return Array.isArray(payload) && payload.length ? payload[0] : payload;
-};
-
-const getImage = (payload) => {
-  const icon = getFromArrayOrString(payload);
-  return icon
-    ? `/chess-icons/${icon.toLowerCase().trim()}.png`
-    : "/chess-icons/none.png";
-};
+import { getImage, getFromArrayOrString } from "../../utils/index";
 
 const prefixMap = `flex flex-col flex-nowrap transition-all duration-300 ease-in-out cursor-pointer hover:shadow-xl relative top-0 hover:top-2 hover:opacity-80 w-48 overflow-hidden rounded-lg bg-gradient-to-r`;
 const styleMap = {
@@ -21,20 +11,28 @@ const styleMap = {
   Legendary: tw`${prefixMap} from-yellow-200 to-yellow-400`,
   default: tw`${prefixMap} from-gray-200 to-gray-400`,
 };
-const getStyleName = ({ quality }) => styleMap[quality] || styleMap.default;
-const Container = styled.div(getStyleName);
+const getContainerStyle = ({ quality }) =>
+  styleMap[quality] || styleMap.default;
+const Container = styled.div(getContainerStyle);
+
+const prefixName = `font-semibold truncate text-sm`;
+const getNameStyle = ({ banned }) =>
+  banned ? tw`${prefixName} text-red-500` : tw`${prefixName} text-gray-700`;
+const Name = styled.div(getNameStyle);
 
 const FrontCard = ({ fieldsData, title, onCardClick }) => {
   return (
     <Container
       quality={getFromArrayOrString(fieldsData.cardQuality)}
-      title={title}
-      onClick={() => onCardClick(fieldsData)}
+      title={fieldsData.banned ? "This card is banned" : title}
+      style={{
+        opacity: fieldsData.banned && 0.5,
+        cursor: fieldsData.banned && "not-allowed",
+      }}
+      onClick={() => (!fieldsData.banned ? onCardClick(fieldsData) : null)}
     >
-      <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white mb-3">
-        <div tw="font-semibold text-gray-700 truncate text-sm">
-          {fieldsData.name}
-        </div>
+      <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white mb-3 relative z-10">
+        <Name banned={fieldsData.banned}>{fieldsData.name}</Name>
         <div tw="flex flex-row flex-nowrap items-center">
           <Image
             src="/chess-icons/coin.png"
@@ -47,14 +45,28 @@ const FrontCard = ({ fieldsData, title, onCardClick }) => {
           <span tw="pl-1 text-yellow-400">{fieldsData.cardExpend}</span>
         </div>
       </div>
-      <Image
-        src={fieldsData.cardImg}
-        alt="Icon image"
-        layout="responsive"
-        width={300.33}
-        height={300.33}
-        quality={70}
-      />
+      {fieldsData.manual ? (
+        <div tw="relative z-0 w-full overflow-hidden flex justify-center">
+          <Image
+            src={fieldsData.cardImg}
+            alt="Icon image"
+            layout="intrinsic"
+            tw="overflow-hidden"
+            width={135}
+            height={300}
+            quality={70}
+          />
+        </div>
+      ) : (
+        <Image
+          src={fieldsData.cardImg}
+          alt="Icon image"
+          layout="responsive"
+          width={300.33}
+          height={300.33}
+          quality={70}
+        />
+      )}
       <div tw="flex flex-row flex-nowrap relative justify-center mt-3">
         {fieldsData.category.length > 1 ? (
           <div tw="bg-gray-900 absolute w-10 top-1 left-0 rounded-3xl flex flex-col items-center text-center gap-1 h-12">

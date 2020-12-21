@@ -1,4 +1,4 @@
-export default {
+const base = {
   icon: "",
   name: "",
   armor: "",
@@ -38,3 +38,122 @@ export default {
   threeStarAttackDistance: "",
   threeStarMagicResistance: "",
 };
+
+const categories = [
+  {
+    text: "beast",
+    active: true,
+  },
+  {
+    text: "insectoid",
+    active: true,
+  },
+  {
+    text: "cave",
+    active: true,
+  },
+  {
+    text: "demon",
+    active: true,
+  },
+  {
+    text: "divinity",
+    active: true,
+  },
+  {
+    text: "dragon",
+    active: true,
+  },
+  {
+    text: "egersis",
+    active: true,
+  },
+  {
+    text: "human",
+    active: true,
+  },
+  {
+    text: "dwarf",
+    active: true,
+  },
+  {
+    text: "feathered",
+    active: true,
+  },
+  {
+    text: "glacier",
+    active: true,
+  },
+  {
+    text: "goblin",
+    active: true,
+  },
+  {
+    text: "kira",
+    active: true,
+  },
+  {
+    text: "marine",
+    active: true,
+  },
+  {
+    text: "spirits",
+    active: true,
+  },
+];
+const types = [
+  {
+    text: "druid",
+    active: true,
+  },
+  {
+    text: "warrior",
+    active: true,
+  },
+  {
+    text: "assassin",
+    active: true,
+  },
+  {
+    text: "shaman",
+    active: true,
+  },
+  {
+    text: "hunter",
+    active: true,
+  },
+  {
+    text: "wizard",
+    active: true,
+  },
+  {
+    text: "knight",
+    active: true,
+  },
+  {
+    text: "witcher",
+    active: true,
+  },
+  {
+    text: "warlock",
+    active: true,
+  },
+  {
+    text: "priest",
+    active: true,
+  },
+  {
+    text: "mage",
+    active: true,
+  },
+  {
+    text: "mech",
+    active: true,
+  },
+  {
+    text: "none",
+    active: true,
+  },
+];
+
+export { base, types, categories };

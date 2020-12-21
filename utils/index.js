@@ -14,4 +14,15 @@ const getSortedArrayByCategory = (array, attribute = null) => {
   });
 };
 
-export { getSortedArrayByCategory };
+const getFromArrayOrString = (payload) => {
+  return Array.isArray(payload) && payload.length ? payload[0] : payload;
+};
+
+const getImage = (payload) => {
+  const icon = getFromArrayOrString(payload);
+  return icon
+    ? `/chess-icons/${icon.toLowerCase().trim()}.png`
+    : "/chess-icons/none.png";
+};
+
+export { getSortedArrayByCategory, getImage, getFromArrayOrString };

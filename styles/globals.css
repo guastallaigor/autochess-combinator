@@ -79,6 +79,10 @@ img {
 
 /* custom */
 
+.active-filter {
+  opacity: 0.5;
+}
+
 .grid-cols {
   grid-template-columns: repeat(auto-fit, minmax(192px, 1fr));
   grid-auto-rows: 312px;
