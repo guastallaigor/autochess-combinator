@@ -15,7 +15,7 @@ const HeaderWrapper = () => {
           aria-label="Github Link"
           target="_blank"
         >
-          {new Date().getFullYear()} @guastallaigor
+          Created by @guastallaigor
         </a>
       </h1>
     </header>
