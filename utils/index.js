@@ -20,9 +20,12 @@ const getFromArrayOrString = (payload) => {
 
 const getImage = (payload) => {
   const icon = getFromArrayOrString(payload);
-  return icon
+  return icon && typeof icon === "string"
     ? `/chess-icons/${icon.toLowerCase().trim()}.png`
     : "/chess-icons/none.png";
 };
 
-export { getSortedArrayByCategory, getImage, getFromArrayOrString };
+const makeId = (length = 50) =>
+  [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
+
+export { getSortedArrayByCategory, getImage, getFromArrayOrString, makeId };

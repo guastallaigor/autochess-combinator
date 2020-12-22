@@ -39,6 +39,66 @@ const base = {
   threeStarMagicResistance: "",
 };
 
+const baseComplete = {
+  resource_code: "",
+  fields_data: {
+    icon: "",
+    name: "",
+    armor: "",
+    noIcon: "",
+    cardImg: "",
+    cardType: [],
+    category: [],
+    chessSkin: [],
+    lifeValue: "",
+    skillName: "",
+    cardExpend: "",
+    chessTitle: "",
+    attackPower: "",
+    attackSpeed: "",
+    cardQuality: [""],
+    waitingTime: "",
+    twoStarArmor: "",
+    attackDistance: "",
+    chessSkillIcon: "",
+    threeStarArmor: "",
+    twoStarCardImg: "",
+    magicResistance: "",
+    storyBackground: "",
+    threeStarCardImg: "",
+    twoStarLifeValue: "",
+    onestarChessSkill: "",
+    twostarChessSkill: "",
+    threeStarLifeValue: "",
+    twoStarAttackPower: "",
+    twoStarAttackSpeed: "",
+    threestarChessSkill: "",
+    recommendedEquipment: 0,
+    threeStarAttackPower: "",
+    threeStarAttackSpeed: "",
+    twoStarAttackDistance: "",
+    twoStarMagicResistance: "",
+    threeStarAttackDistance: "",
+    threeStarMagicResistance: "",
+  },
+  menu_name: "英雄库",
+  menu: {
+    menu_code: "e52b47a91c5",
+    menu_mark: "chessInformation",
+    menu_name: "英雄库",
+  },
+  parent_menu: {
+    menu_code: "e52b47a9172",
+    menu_mark: "gameInformation",
+    menu_name: "游戏资料",
+  },
+  status: 10,
+  sort: 3,
+  language: "en",
+  created_at: "2019-12-18",
+  updated_at: "2020-08-12",
+};
+
 const categories = [
   {
     text: "Beast",
@@ -297,4 +357,4 @@ const typesBuffs = {
   },
 };
 
-export { base, types, categories, categoriesBuffs, typesBuffs };
+export { base, baseComplete, types, categories, categoriesBuffs, typesBuffs };

@@ -10,13 +10,14 @@ import HeaderWrapper from "../components/layout/header-wrapper";
 import Tooltip from "../components/generic/tooltip";
 import {
   base,
+  baseComplete,
   categories,
   types,
   categoriesBuffs,
   typesBuffs,
 } from "../assets/static";
 import { getSortedArrayByCategory } from "../utils/index";
-import { getImage } from "../utils/index";
+import { getImage, makeId } from "../utils/index";
 
 const Home = ({ data }) => {
   const payload = Array.from(Array(10).keys()).map((it) => ({ ...base }));
@@ -234,16 +235,17 @@ const Home = ({ data }) => {
 
   const getItemKey = ({ columnIndex, data, rowIndex }) => {
     const item = data.copiedData[columnIndex + rowIndex * data.maxItemsPerRow];
-    if (!item) return `pieces-${columnIndex}`;
-    return `${item.fields_data.icon}-${columnIndex}`;
+    if (!item || !item.fields_data || !item.fields_data.icon)
+      return `pieces-${columnIndex}-${makeId()}`;
+    return `${item.fields_data.icon}-${columnIndex}-${rowIndex}`;
   };
 
   const getItemKeyCombinator = ({ columnIndex, data, rowIndex }) => {
     const item =
       data.selected[columnIndex + rowIndex * data.maxItemsPerRowCombinator];
-    return `${
-      item && item.icon ? item.icon : "combinator"
-    }-${columnIndex}-${rowIndex}`;
+    if (!item || !item.icon)
+      return `combinator-${columnIndex}-${rowIndex}-${makeId()}`;
+    return `${item.icon}-${columnIndex}-${rowIndex}`;
   };
 
   const handleSelect = (fieldsData) => {
@@ -291,21 +293,43 @@ const Home = ({ data }) => {
     setBuffs([...localCategories, ...localTypes]);
   }, [selected]);
 
+  const getFilteredData = (array, fieldName = "category") => {
+    const filteredData = data.filter((data) =>
+      data.fields_data[fieldName].some((it) => {
+        const item = array.find(
+          (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
+        );
+        return item ? item.active : false;
+      })
+    );
+    const copiedDataLength = copiedData.length;
+    const filteredDataLength = filteredData.length;
+    const currentBase = { ...baseComplete, resource_code: makeId() };
+
+    if (copiedDataLength > filteredDataLength) {
+      for (let index = filteredDataLength; index < copiedDataLength; index++) {
+        filteredData.push({ ...currentBase });
+      }
+    } else {
+      let quantityItemsToRemove = filteredDataLength - copiedDataLength;
+      filteredData.forEach((item, index, object) => {
+        if (quantityItemsToRemove === 0) return false;
+        if (!item.fields_data.name) {
+          object.splice(index, 1);
+          quantityItemsToRemove--;
+        }
+      });
+    }
+
+    return filteredData;
+  };
+
   useEffect(() => {
     if (firstUpdateCategories.current) {
       firstUpdateCategories.current = false;
       return;
     }
-
-    const filteredData = data.filter((data) =>
-      data.fields_data.category.some((it) => {
-        const category = categoriesFilter.find(
-          (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
-        );
-        return category ? category.active : false;
-      })
-    );
-    console.log(filteredData, ":1");
+    const filteredData = getFilteredData(categoriesFilter);
     setCopiedData(getSortedArrayByCategory(filteredData, "fields_data"));
   }, [categoriesFilter]);
 
@@ -315,14 +339,7 @@ const Home = ({ data }) => {
       return;
     }
 
-    const filteredData = data.filter((data) =>
-      data.fields_data.cardType.some((it) => {
-        const cardType = typesFilter.find(
-          (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
-        );
-        return cardType ? cardType.active : false;
-      })
-    );
+    const filteredData = getFilteredData(typesFilter, "cardType");
     setCopiedData(getSortedArrayByCategory(filteredData, "fields_data"));
   }, [typesFilter]);
 
