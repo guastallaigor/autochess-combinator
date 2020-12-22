@@ -2,51 +2,33 @@
 import { GlobalStyles } from "twin.macro";
 import Head from "next/head";
 import "../styles/globals.css";
+import { useEffect } from "react";
 
-const sendMetric = ({ name, value }) => {
-  const url = `https://qckm.io?m=${name}&v=${value}&k=${process.env.NEXT_PUBLIC_QUICK_METRICS_API_KEY}`;
-
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon(url);
-  } else {
-    fetch(url, { method: "POST", keepalive: true });
-  }
+const App = ({ Component, pageProps }) => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.setAttribute(
+      "data-goatcounter",
+      "https://autochess-combinator.goatcounter.com/count"
+    );
+    script.async = true;
+    script.src = "//gc.zgo.at/count.js";
+    const body = document.getElementsByTagName("body")[0];
+    body.appendChild(script);
+  }, []);
+  return (
+    <>
+      <Head>
+        <title>Auto Chess Combinator</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+      </Head>
+      <GlobalStyles />
+      <Component {...pageProps} />
+    </>
+  );
 };
-
-export function reportWebVitals(metric) {
-  switch (metric.name) {
-    case "FCP":
-      sendMetric(metric);
-      break;
-    case "LCP":
-      sendMetric(metric);
-      break;
-    case "CLS":
-      sendMetric(metric);
-      break;
-    case "FID":
-      sendMetric(metric);
-      break;
-    case "TTFB":
-      sendMetric(metric);
-      break;
-    default:
-      break;
-  }
-}
-
-const App = ({ Component, pageProps }) => (
-  <>
-    <Head>
-      <title>Auto Chess Combinator</title>
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      />
-    </Head>
-    <GlobalStyles />
-    <Component {...pageProps} />
-  </>
-);
 
 export default App;
