@@ -69,8 +69,8 @@ export default class MyDocument extends Document {
             rel="canonical"
             href="https://autochess-combinator.vercel.app"
           />
-          <link rel="manifest" href="/site.webmanifest" />
           <link rel="manifest" href="/manifest.json" />
+          <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -84,7 +84,7 @@ export default class MyDocument extends Document {
           <meta
             hid="description"
             name="description"
-            content="Get information about every chess piece in Auto Chess (Epic Games) and make chess combinations as much as you want!"
+            content="Make chess pieces combinations as much as you want! (Auto Chess - Epic Games)"
           />
           <meta name="robots" content="index,follow" />
           <meta property="og:type" content="website" />
@@ -95,9 +95,9 @@ export default class MyDocument extends Document {
           <meta property="og:title" content="Auto Chess Combinator" />
           <meta
             property="og:description"
-            content="Get information about every chess piece in Auto Chess (Epic Games) and make chess combinations as much as you want!"
+            content="Make chess pieces combinations as much as you want! (Auto Chess - Epic Games)"
           />
-          <meta property="og:image" content="/android-chrome-512x512.png" />
+          <meta property="og:image" content="/icon-512x512.png" />
           <meta property="og:site_name" content="Auto Chess Combinator" />
           <meta property="og:locale" content="en_US" />
           <meta property="twitter:card" content="summary_large_image" />
@@ -109,10 +109,7 @@ export default class MyDocument extends Document {
             property="twitter:description"
             content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
           />
-          <meta
-            property="twitter:image"
-            content="/android-chrome-192x192.png"
-          />
+          <meta property="twitter:image" content="/icon-192x192.png" />
           <meta
             property="twitter:image:alt"
             content="Logo Auto Chess Combinator"
