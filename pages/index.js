@@ -363,13 +363,16 @@ const Home = ({ data }) => {
             Chess Pieces
           </h2>
           <div tw="w-full xl:my-6 my-3 flex-col flex-nowrap flex">
-            <div tw="flex flex-wrap items-center flex-row gap-5 justify-center xl:justify-start">
-              <span tw="text-base text-white xl:pl-6">Categories:</span>
+            <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start">
+              <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
+                Categories:
+              </span>
               {categoriesFilter.map((category, idx) => {
                 return (
                   <button
                     type="button"
                     tw="overflow-hidden h-8"
+                    className="add-gap-items"
                     key={`${category.text}${idx}`}
                     onClick={() => toggleCategoriesFilter(category, idx)}
                   >
@@ -389,13 +392,16 @@ const Home = ({ data }) => {
                 );
               })}
             </div>
-            <div tw="flex flex-wrap items-center flex-row gap-5 mt-6 justify-center xl:justify-start">
-              <span tw="text-base text-white xl:pl-6">Types:</span>
+            <div tw="flex flex-wrap items-center flex-row mt-6 justify-center xl:justify-start">
+              <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
+                Types:
+              </span>
               {typesFilter.map((type, idx) => {
                 return (
                   <button
                     type="button"
                     tw="overflow-hidden h-8"
+                    className="add-gap-items"
                     key={`${type.text}${idx}`}
                     onClick={() => toggleTypesFilter(type, idx)}
                   >
@@ -444,11 +450,17 @@ const Home = ({ data }) => {
             <span tw="text-base"></span>
           </h2>
           <div tw="w-full my-3 xl:my-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-wrap items-center flex-row gap-5 justify-center xl:justify-start">
-              <span tw="text-base text-white xl:pl-6">Buffs:</span>
+            <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start">
+              <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
+                Buffs:
+              </span>
               {buffs.map((buff, idx) => {
                 return (
-                  <div key={`${buff.text}${idx}`} tw="h-8 relative">
+                  <div
+                    key={`${buff.text}${idx}`}
+                    tw="h-8 relative"
+                    className="add-gap-items"
+                  >
                     <div
                       tw="absolute text-white z-10 font-bold -top-2 -right-1 text-sm"
                       style={{ color: buff.penalty && "red" }}

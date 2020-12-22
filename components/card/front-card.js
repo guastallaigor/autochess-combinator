@@ -75,10 +75,14 @@ const FrontCard = ({ fieldsData, title, onCardClick, style }) => {
       )}
       <div tw="flex flex-row flex-nowrap relative justify-center mt-3">
         {fieldsData.category.length > 1 ? (
-          <div tw="bg-gray-900 absolute w-10 top-1 left-0 rounded-3xl flex flex-col items-center text-center gap-1 h-12">
+          <div
+            tw="bg-gray-900 absolute w-10 top-1 left-0 rounded-3xl flex flex-col items-center text-center h-12"
+            className="add-gap-inside"
+          >
             {fieldsData.category.map((category, idx) => {
               return (
                 <Image
+                  className="add-gap-inside"
                   key={category + idx}
                   src={getImage(category)}
                   alt="Chess Icon Category Image"
