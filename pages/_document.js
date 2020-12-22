@@ -30,6 +30,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <meta charSet="utf-8" />
           <meta name="application-name" content="Auto Chess Combinator" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
@@ -74,7 +75,6 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="msapplication-TileColor" content="#da532c" />
-          <meta charSet="utf-8" />
           <meta
             name="keywords"
             content="Auto Chess,Auto Chess strategies,AutoChess,Auto Chess PC version,Auto Chess mobile game,Auto Chess Combinator,AutoChessCombinator"
