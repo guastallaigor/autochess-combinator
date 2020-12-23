@@ -11,12 +11,12 @@ import Tooltip from "../components/generic/tooltip";
 import {
   base,
   baseComplete,
-  categories,
-  types,
-  categoriesBuffs,
-  typesBuffs,
+  races,
+  classes,
+  racesBuffs,
+  classesBuffs,
 } from "../assets/static";
-import { getSortedArrayByCategory } from "../utils/index";
+import { getSortedArrayByRace } from "../utils/index";
 import { getImage, makeId } from "../utils/index";
 
 const Home = ({ data }) => {
@@ -25,25 +25,25 @@ const Home = ({ data }) => {
   const [copiedData, setCopiedData] = useState([
     ...data.map((it) => ({ ...it })),
   ]);
-  const [categoriesFilter, setCategoriesFilter] = useState(categories);
-  const [typesFilter, setTypesFilter] = useState(types);
+  const [racesFilter, setRacesFilter] = useState(races);
+  const [classesFilter, setClassesFilter] = useState(classes);
   const [buffs, setBuffs] = useState([]);
   const [maxItemsPerRow, setMaxItemsPerRow] = useState(5);
   const [maxItemsPerRowCombinator, setMaxItemsPerRowCombinator] = useState(2);
-  const firstUpdateCategories = useRef(true);
-  const firstUpdateTypes = useRef(true);
+  const firstUpdateRaces = useRef(true);
+  const firstUpdateClasses = useRef(true);
 
-  const getCategoriesSelectedBuffs = (localTypes) => {
-    Object.keys(categoriesBuffs).forEach((element) => {
-      categoriesBuffs[element].count = selected.filter((it) =>
+  const getRacesSelectedBuffs = (localClasses) => {
+    Object.keys(racesBuffs).forEach((element) => {
+      racesBuffs[element].count = selected.filter((it) =>
         it.category.includes(element)
       ).length;
     });
 
     let localBuffs = [];
-    Object.keys(categoriesBuffs).forEach((element) => {
-      const value = categoriesBuffs[element].count;
-      const buff = categoriesBuffs[element].buff;
+    Object.keys(racesBuffs).forEach((element) => {
+      const value = racesBuffs[element].count;
+      const buff = racesBuffs[element].buff;
       const hasAtLeastOne = value >= 1;
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
@@ -52,7 +52,7 @@ const Home = ({ data }) => {
       const getAnotherTwoValue = value === 3 ? 2 : value > 4 ? 4 : value;
       const getThreeValue =
         value === 4 || value === 5 ? 3 : value > 6 ? 6 : value;
-      const witcher = localTypes.find((it) => it.text === "Witcher");
+      const witcher = localClasses.find((it) => it.text === "Witcher");
       const objectToPush = {
         Beast: hasAtLeastTwo
           ? {
@@ -139,17 +139,17 @@ const Home = ({ data }) => {
     return localBuffs;
   };
 
-  const getTypesSelectedBufs = () => {
-    Object.keys(typesBuffs).forEach((element) => {
-      typesBuffs[element].count = selected.filter((it) =>
+  const getClassesSelectedBufs = () => {
+    Object.keys(classesBuffs).forEach((element) => {
+      classesBuffs[element].count = selected.filter((it) =>
         it.cardType.includes(element)
       ).length;
     });
 
     let localBuffs = [];
-    Object.keys(typesBuffs).forEach((element) => {
-      const value = typesBuffs[element].count;
-      const buff = typesBuffs[element].buff;
+    Object.keys(classesBuffs).forEach((element) => {
+      const value = classesBuffs[element].count;
+      const buff = classesBuffs[element].buff;
       const hasAtLeastOne = value >= 1;
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
@@ -310,14 +310,14 @@ const Home = ({ data }) => {
     setSelected([...selected, { ...base }]);
   };
 
-  const toggleCategoriesFilter = (category, idx) => {
-    categoriesFilter[idx].active = !categoriesFilter[idx].active;
-    setCategoriesFilter([...categoriesFilter]);
+  const toggleRacesFilter = (_, idx) => {
+    racesFilter[idx].active = !racesFilter[idx].active;
+    setRacesFilter([...racesFilter]);
   };
 
-  const toggleTypesFilter = (type, idx) => {
-    typesFilter[idx].active = !typesFilter[idx].active;
-    setTypesFilter([...typesFilter]);
+  const toggleClassesFilter = (_, idx) => {
+    classesFilter[idx].active = !classesFilter[idx].active;
+    setClassesFilter([...classesFilter]);
   };
 
   const clearAllCards = () => {
@@ -335,14 +335,8 @@ const Home = ({ data }) => {
     setCopiedData([...newDataStyle]);
   };
 
-  useEffect(() => {
-    const localTypes = getTypesSelectedBufs();
-    const localCategories = getCategoriesSelectedBuffs(localTypes);
-    setBuffs([...localCategories, ...localTypes]);
-  }, [selected]);
-
   const getFilteredData = (array, fieldName = "category") => {
-    const filteredData = data.filter((data) =>
+    let filteredData = data.filter((data) =>
       data.fields_data[fieldName].some((it) => {
         const item = array.find(
           (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
@@ -350,15 +344,21 @@ const Home = ({ data }) => {
         return item ? item.active : false;
       })
     );
-    const copiedDataLength = copiedData.length;
     const filteredDataLength = filteredData.length;
+    if (!filteredDataLength) {
+      filteredData = [...data.map((it) => ({ ...it }))];
+    }
+    const copiedDataLength = copiedData.length;
     const currentBase = { ...baseComplete, resource_code: makeId() };
 
     if (copiedDataLength > filteredDataLength) {
       for (let index = filteredDataLength; index < copiedDataLength; index++) {
+        // * Add blank cards because of a bug
+        // * with react-window or react-virtualized-auto-sizer I think
         filteredData.push({ ...currentBase });
       }
     } else {
+      // * Remove them when the they're not needed
       let quantityItemsToRemove = filteredDataLength - copiedDataLength;
       filteredData.forEach((item, index, object) => {
         if (quantityItemsToRemove === 0) return false;
@@ -373,23 +373,29 @@ const Home = ({ data }) => {
   };
 
   useEffect(() => {
-    if (firstUpdateCategories.current) {
-      firstUpdateCategories.current = false;
-      return;
-    }
-    const filteredData = getFilteredData(categoriesFilter);
-    setCopiedData(getSortedArrayByCategory(filteredData, "fields_data"));
-  }, [categoriesFilter]);
+    const localClasses = getClassesSelectedBufs();
+    const localRaces = getRacesSelectedBuffs(localClasses);
+    setBuffs([...localRaces, ...localClasses]);
+  }, [selected]);
 
   useEffect(() => {
-    if (firstUpdateTypes.current) {
-      firstUpdateTypes.current = false;
+    if (firstUpdateRaces.current) {
+      firstUpdateRaces.current = false;
+      return;
+    }
+    const filteredData = getFilteredData(racesFilter);
+    setCopiedData(getSortedArrayByRace(filteredData, "fields_data"));
+  }, [racesFilter]);
+
+  useEffect(() => {
+    if (firstUpdateClasses.current) {
+      firstUpdateClasses.current = false;
       return;
     }
 
-    const filteredData = getFilteredData(typesFilter, "cardType");
-    setCopiedData(getSortedArrayByCategory(filteredData, "fields_data"));
-  }, [typesFilter]);
+    const filteredData = getFilteredData(classesFilter, "cardType");
+    setCopiedData(getSortedArrayByRace(filteredData, "fields_data"));
+  }, [classesFilter]);
 
   useEffect(() => {
     const { innerWidth } = window;
@@ -415,23 +421,23 @@ const Home = ({ data }) => {
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
                 Races:
               </span>
-              {categoriesFilter.map((category, idx) => {
+              {racesFilter.map((race, idx) => {
                 return (
                   <button
                     type="button"
                     tw="overflow-hidden h-8"
                     className="add-gap-items"
                     title="Toggle to filter"
-                    key={`${category.text}${idx}`}
-                    onClick={() => toggleCategoriesFilter(category, idx)}
+                    key={`${race.text}${idx}`}
+                    onClick={() => toggleRacesFilter(race, idx)}
                   >
                     <Image
-                      src={getImage(category.text)}
-                      alt="Chess Icon Category Image"
+                      src={getImage(race.text)}
+                      alt="Chess Icon Race Image"
                       layout="fixed"
                       tw="transition-opacity duration-200 ease-in-out"
                       className={
-                        category.active ? "active-filter" : "inactive-filter"
+                        race.active ? "active-filter" : "inactive-filter"
                       }
                       width={32}
                       height={32}
@@ -445,23 +451,23 @@ const Home = ({ data }) => {
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
                 Classes:
               </span>
-              {typesFilter.map((type, idx) => {
+              {classesFilter.map((it, idx) => {
                 return (
                   <button
                     type="button"
                     tw="overflow-hidden h-8"
                     className="add-gap-items"
                     title="Toggle to filter"
-                    key={`${type.text}${idx}`}
-                    onClick={() => toggleTypesFilter(type, idx)}
+                    key={`${it.text}${idx}`}
+                    onClick={() => toggleClassesFilter(it, idx)}
                   >
                     <Image
-                      src={getImage(type.text)}
-                      alt="Chess Icon Type Image"
+                      src={getImage(it.text)}
+                      alt="Chess Icon Class Image"
                       layout="fixed"
                       tw="transition-opacity duration-200 ease-in-out"
                       className={
-                        type.active ? "active-filter" : "inactive-filter"
+                        it.active ? "active-filter" : "inactive-filter"
                       }
                       width={32}
                       height={32}
@@ -593,7 +599,7 @@ export const getStaticProps = async () => {
   const data = await import("../assets/base-request.json");
   return {
     props: {
-      data: getSortedArrayByCategory(data.data.list, "fields_data"),
+      data: getSortedArrayByRace(data.data.list, "fields_data"),
     },
   };
 };

@@ -99,124 +99,124 @@ const baseComplete = {
   updated_at: "2020-08-12",
 };
 
-const categories = [
+const races = [
   {
     text: "Beast",
-    active: true,
+    active: false,
   },
   {
     text: "Insectoid",
-    active: true,
+    active: false,
   },
   {
     text: "Cave",
-    active: true,
+    active: false,
   },
   {
     text: "Demon",
-    active: true,
+    active: false,
   },
   {
     text: "Divinity",
-    active: true,
+    active: false,
   },
   {
     text: "Dragon",
-    active: true,
+    active: false,
   },
   {
     text: "Egersis",
-    active: true,
+    active: false,
   },
   {
     text: "Human",
-    active: true,
+    active: false,
   },
   {
     text: "Dwarf",
-    active: true,
+    active: false,
   },
   {
     text: "Feathered",
-    active: true,
+    active: false,
   },
   {
     text: "Glacier",
-    active: true,
+    active: false,
   },
   {
     text: "Goblin",
-    active: true,
+    active: false,
   },
   {
     text: "Kira",
-    active: true,
+    active: false,
   },
   {
     text: "Marine",
-    active: true,
+    active: false,
   },
   {
     text: "Spirits",
-    active: true,
+    active: false,
   },
 ];
-const types = [
+const classes = [
   {
     text: "Druid",
-    active: true,
+    active: false,
   },
   {
     text: "Warrior",
-    active: true,
+    active: false,
   },
   {
     text: "Assassin",
-    active: true,
+    active: false,
   },
   {
     text: "Shaman",
-    active: true,
+    active: false,
   },
   {
     text: "Hunter",
-    active: true,
+    active: false,
   },
   {
     text: "Wizard",
-    active: true,
+    active: false,
   },
   {
     text: "Knight",
-    active: true,
+    active: false,
   },
   {
     text: "Witcher",
-    active: true,
+    active: false,
   },
   {
     text: "Warlock",
-    active: true,
+    active: false,
   },
   {
     text: "Priest",
-    active: true,
+    active: false,
   },
   {
     text: "Mage",
-    active: true,
+    active: false,
   },
   {
     text: "Mech",
-    active: true,
+    active: false,
   },
   {
     text: "None",
-    active: true,
+    active: false,
   },
 ];
 
-const categoriesBuffs = {
+const racesBuffs = {
   Beast: {
     buff:
       "<strong>2:</strong> All Allies +15% ATK, including the summoned. <br><strong>4:</strong> All Allies +30% ATK, including the summoned. <br><strong>6:</strong> All Allies +30% ATK, including the summoned. The enemy will take 20 extra Physical Damage when attacked by an ally who benefits from the Beast Synergy, can be stacked.",
@@ -294,7 +294,7 @@ const categoriesBuffs = {
   },
 };
 
-const typesBuffs = {
+const classesBuffs = {
   Druid: {
     buff:
       "<strong>2:</strong> Require 1 less pieces when upgrading from 1-Star Druid to 2-Star. <br><strong>4:</strong> Require 1 less pieces when upgrading Druid.",
@@ -322,7 +322,7 @@ const typesBuffs = {
   },
   Wizard: {
     buff:
-      "<strong>(WIP Combination)</strong><strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
+      "<strong>(WIP Combination)</strong><br><strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
     count: 0,
   },
   Knight: {
@@ -357,4 +357,4 @@ const typesBuffs = {
   },
 };
 
-export { base, baseComplete, types, categories, categoriesBuffs, typesBuffs };
+export { base, baseComplete, classes, classesBuffs, races, racesBuffs };

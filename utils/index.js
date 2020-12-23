@@ -1,4 +1,4 @@
-const getSortedArrayByCategory = (array, attribute = null) => {
+const getSortedArrayByRace = (array, attribute = null) => {
   return array.sort((a, b) => {
     const aElement = attribute ? a[attribute].category[0] : a.category[0];
     const bElement = attribute ? b[attribute].category[0] : b.category[0];
@@ -28,4 +28,4 @@ const getImage = (payload) => {
 const makeId = (length = 50) =>
   [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
 
-export { getSortedArrayByCategory, getImage, getFromArrayOrString, makeId };
+export { getSortedArrayByRace, getImage, getFromArrayOrString, makeId };
