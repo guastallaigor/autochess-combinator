@@ -44,7 +44,7 @@ const FrontCard = ({
       }}
       onClick={() => (!fieldsData.banned ? onCardClick(fieldsData) : null)}
     >
-      <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white mb-3 relative z-10">
+      <div tw="flex flex-row flex-nowrap items-center justify-between p-2 bg-white relative z-10">
         <Name banned={fieldsData.banned}>{fieldsData.name}</Name>
         <div tw="flex flex-row flex-nowrap items-center">
           <Image
@@ -71,16 +71,18 @@ const FrontCard = ({
           />
         </div>
       ) : (
-        <Image
-          src={fieldsData.cardImg}
-          alt="Icon image"
-          layout="responsive"
-          width={300.33}
-          height={300.33}
-          quality={70}
-        />
+        <div tw="my-1 overflow-hidden">
+          <Image
+            src={fieldsData.cardImg}
+            alt="Icon image"
+            layout="responsive"
+            width={300.33}
+            height={300.33}
+            quality={70}
+          />
+        </div>
       )}
-      <div tw="flex flex-row flex-nowrap relative justify-center mt-3">
+      <div tw="flex flex-row flex-nowrap relative justify-center">
         {fieldsData.category.length > 1 ? (
           <div
             tw="bg-gray-900 absolute w-10 top-1 left-0 rounded-3xl flex flex-col items-center text-center h-12"
