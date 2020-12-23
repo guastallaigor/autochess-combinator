@@ -20,7 +20,13 @@ const getNameStyle = ({ banned }) =>
   banned ? tw`${prefixName} text-red-500` : tw`${prefixName} text-gray-700`;
 const Name = styled.div(getNameStyle);
 
-const FrontCard = ({ fieldsData, title, onCardClick, style }) => {
+const FrontCard = ({
+  fieldsData,
+  title,
+  onCardClick,
+  style,
+  hasActiveState,
+}) => {
   return (
     <Container
       className="front-card"
@@ -32,7 +38,8 @@ const FrontCard = ({ fieldsData, title, onCardClick, style }) => {
         width: style && style.width ? style.width - 25 : "auto",
         left: style.left,
         height: style && style.height ? style.height - 30 : "auto",
-        opacity: fieldsData.banned && 0.5,
+        opacity:
+          (fieldsData.banned || (fieldsData.active && hasActiveState)) && 0.5,
         cursor: fieldsData.banned && "not-allowed",
       }}
       onClick={() => (!fieldsData.banned ? onCardClick(fieldsData) : null)}
