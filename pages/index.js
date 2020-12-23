@@ -481,7 +481,7 @@ const Home = ({ data }) => {
             </button>
           </div>
           <div tw="w-full my-3 xl:my-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start">
+            <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start min-h-32">
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
                 Buffs:
               </span>
