@@ -9,7 +9,20 @@
 > **Note:**
 > This is an unofficial project.
 > I do not work or am I affiliated with Auto Chess, Drodo or Dragonest Co.Ltd.
-> For more information about the game, visit [Auto Chess Official Website](https://ac.dragonest.com/)
+> For more information about the game, visit [Auto Chess Official Website](https://ac.dragonest.com/).
+> I've used the images from their official website, but it's a static website so no requests are being made.
+
+## Instructions
+
+- Click on any card below "Chess Pieces" to select it;
+- Click on any card below "Combinator" to unselect it;
+- "Races" and "Classes" are the filters. They are toggle buttons to remove/add the cards from the grid;
+- If you make the right combinations, the buffs are shown aside the "Buffs" label;
+- Hover over any buffs to see what it does (a tooltip will appear with that information);
+- Quantity shows how many cards are selected;
+- The "Clear" button will clear all the selected cards and clear the buffs;
+- You can't select banned or already selected cards;
+- It's a PWA (Progressive Web App), you can install it if you want.
 
 ## Usage
 

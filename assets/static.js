@@ -259,7 +259,7 @@ const categoriesBuffs = {
   },
   Dwarf: {
     buff:
-      "<strong>1:</strong> Increases attack range by 2 grids, within the range, targets enemy with the lowest HP first. <strong>2:</strong> Increases all ranged allies attack range by 2 grids. Within the range, target enemy with the lowest HP first.",
+      "<strong>1:</strong> Increases attack range by 2 grids, within the range, targets enemy with the lowest HP first. <br><strong>2:</strong> Increases all ranged allies attack range by 2 grids. Within the range, target enemy with the lowest HP first.",
     count: 0,
   },
   Feathered: {
@@ -322,7 +322,7 @@ const typesBuffs = {
   },
   Wizard: {
     buff:
-      "<strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
+      "<strong>(WIP Combination)</strong><strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
     count: 0,
   },
   Knight: {
@@ -342,7 +342,7 @@ const typesBuffs = {
   },
   Priest: {
     buff:
-      "<strong>1:</strong> When the chess player receives more than 2 damage, blocks 20% of damage for the chess player. <strong>2:</strong> When the chess player receives more than 2 damage, blocks 20% of damage for the chess player, and if the chess player receives more than 8 damage, gets Green Essence x1.",
+      "<strong>1:</strong> When the chess player receives more than 2 damage, blocks 20% of damage for the chess player. <br><strong>2:</strong> When the chess player receives more than 2 damage, blocks 20% of damage for the chess player, and if the chess player receives more than 8 damage, gets Green Essence x1.",
     count: 0,
   },
   Mage: {

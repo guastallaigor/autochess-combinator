@@ -1,11 +1,12 @@
 // page/_app.js
 import { GlobalStyles } from "twin.macro";
 import Head from "next/head";
-import "../styles/globals.css";
 import { useEffect } from "react";
+import "../styles/globals.css";
 
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
+    if (process.env.NODE_ENV === "development") return;
     const script = document.createElement("script");
     script.setAttribute(
       "data-goatcounter",
@@ -16,11 +17,11 @@ const App = ({ Component, pageProps }) => {
     const body = document.getElementsByTagName("body")[0];
     body.appendChild(script);
   }, []);
+
   return (
     <>
       <Head>
         <title>Auto Chess Combinator</title>
-        <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
