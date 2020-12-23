@@ -413,7 +413,7 @@ const Home = ({ data }) => {
           <div tw="w-full xl:my-6 my-3 flex-col flex-nowrap flex">
             <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start">
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
-                Categories:
+                Races:
               </span>
               {categoriesFilter.map((category, idx) => {
                 return (
@@ -443,7 +443,7 @@ const Home = ({ data }) => {
             </div>
             <div tw="flex flex-wrap items-center flex-row mt-6 justify-center xl:justify-start">
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
-                Types:
+                Classes:
               </span>
               {typesFilter.map((type, idx) => {
                 return (
@@ -521,11 +521,15 @@ const Home = ({ data }) => {
               <span tw="text-base">Clear</span>
             </button>
           </div>
-          <div tw="w-full my-3 xl:my-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start min-h-32">
-              <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
-                Buffs:
+          <div tw="w-full mb-3 xl:mb-6 flex-col flex-nowrap flex">
+            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-3">
+              <span tw="text-white mr-2">Quantity:</span>
+              <span tw="text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 py-1">
+                {selected.filter((it) => it.name).length} / 10
               </span>
+            </div>
+            <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start min-h-32">
+              <span tw="text-base text-white xl:pl-6 ml-1 md:ml-0">Buffs:</span>
               {buffs.map((buff, idx) => {
                 return (
                   <div
