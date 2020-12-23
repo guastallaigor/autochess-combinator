@@ -344,14 +344,14 @@ const Home = ({ data }) => {
         return item ? item.active : false;
       })
     );
-    const filteredDataLength = filteredData.length;
-    if (!filteredDataLength) {
+    if (!filteredData.length) {
       filteredData = [...data.map((it) => ({ ...it }))];
     }
     const copiedDataLength = copiedData.length;
     const currentBase = { ...baseComplete, resource_code: makeId() };
 
-    if (copiedDataLength > filteredDataLength) {
+    if (copiedDataLength > filteredData.length) {
+      const filteredDataLength = filteredData.length;
       for (let index = filteredDataLength; index < copiedDataLength; index++) {
         // * Add blank cards because of a bug
         // * with react-window or react-virtualized-auto-sizer I think
@@ -359,7 +359,7 @@ const Home = ({ data }) => {
       }
     } else {
       // * Remove them when the they're not needed
-      let quantityItemsToRemove = filteredDataLength - copiedDataLength;
+      let quantityItemsToRemove = filteredData.length - copiedDataLength;
       filteredData.forEach((item, index, object) => {
         if (quantityItemsToRemove === 0) return false;
         if (!item.fields_data.name) {
