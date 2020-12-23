@@ -17,6 +17,7 @@
 - Click on any card below "Chess Pieces" to select it;
 - Click on any card below "Combinator" to unselect it;
 - "Races" and "Classes" are the filters. They are toggle buttons to remove/add the cards from the grid;
+- If no "Race" or "Class" are selected, all cards are shown;
 - If you make the right combinations, the buffs are shown aside the "Buffs" label;
 - Hover over any buffs to see what it does (a tooltip will appear with that information);
 - Quantity shows how many cards are selected;

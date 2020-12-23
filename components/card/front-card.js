@@ -133,7 +133,7 @@ const FrontCard = ({
         <div tw="bg-yellow-700 absolute right-0 bottom-1 rounded-full text-center">
           <Image
             src={getImage(fieldsData.cardType)}
-            alt="Chess Icon Type Image"
+            alt="Chess Icon Class Image"
             layout="fixed"
             width={32}
             height={32}
