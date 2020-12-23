@@ -14,12 +14,15 @@
 
 ## Instructions
 
-1. Click on any card below "Chess Pieces" to select it;
-2. Click on any card below "Combinator" to unselect it;
-3. "Races" and "Classes" are the filters. They are toggle buttons to remove/add the cards from the grid;
-4. If you make the right combinations, the buffs are shown aside the "Buffs" label;
-5. Hover over any buffs to see what it does (a tooltip will appear with that information).
-6. It's a PWA (Progressive Web App), you can install it if you want.
+- Click on any card below "Chess Pieces" to select it;
+- Click on any card below "Combinator" to unselect it;
+- "Races" and "Classes" are the filters. They are toggle buttons to remove/add the cards from the grid;
+- If you make the right combinations, the buffs are shown aside the "Buffs" label;
+- Hover over any buffs to see what it does (a tooltip will appear with that information);
+- Quantity shows how many cards are selected;
+- The "Clear" button will clear all the selected cards and clear the buffs;
+- You can't select banned or already selected cards;
+- It's a PWA (Progressive Web App), you can install it if you want.
 
 ## Usage
 

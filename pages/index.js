@@ -522,8 +522,8 @@ const Home = ({ data }) => {
             </button>
           </div>
           <div tw="w-full mb-3 xl:mb-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-3">
-              <span tw="text-white mr-2">Quantity:</span>
+            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-3 xl:mt-0 mt-3">
+              <span tw="text-white mr-4">Quantity:</span>
               <span tw="text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 py-1">
                 {selected.filter((it) => it.name).length} / 10
               </span>
