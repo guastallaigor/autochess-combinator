@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/android-chrome-192x192.png" width="200px">
+  <img src="./public/icon-192x192.png" width="200px">
   <h1>Auto Chess Combinator</h1>
 </div>
 <p align="center">
@@ -12,8 +12,6 @@
 > For more information about the game, visit [Auto Chess Official Website](https://ac.dragonest.com/)
 
 ## Usage
-
-Recommended resolution for `v0.1.0`: >= 1024 x 768
 
 Go to https://autochess-combinator.vercel.app
 

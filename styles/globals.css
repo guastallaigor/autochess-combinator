@@ -96,10 +96,6 @@ img {
   grid-auto-rows: 312px;
 }
 
-.max-h-grid {
-  max-height: 100%;
-}
-
 .height-cards {
   height: auto;
 }
@@ -120,10 +116,7 @@ img {
   }
 }
 
-@media only screen and (min-width: 1024px) {
-  .max-h-grid {
-    max-height: calc(100vh - 270px);
-  }
+@media only screen and (min-width: 1280px) {
   .height-cards {
     height: calc(100vh - 180px);
   }
