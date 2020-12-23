@@ -248,12 +248,22 @@ const Home = ({ data }) => {
     return `${item.icon}-${columnIndex}-${rowIndex}`;
   };
 
+  const updateCopiedDataStyle = (fieldsData, active = true) => {
+    const foundIndex = copiedData.findIndex(
+      (it) => it.fields_data.name === fieldsData.name
+    );
+    if (foundIndex > -1) {
+      copiedData[foundIndex].fields_data.active = active;
+      setCopiedData([...copiedData]);
+    }
+  };
+
   const handleSelect = (fieldsData) => {
-    let isItemAlreadySelected = selected.find(
+    const isItemAlreadySelected = selected.find(
       (it) => it.name === fieldsData.name
     );
     if (isItemAlreadySelected) return;
-
+    updateCopiedDataStyle(fieldsData);
     const emptyItemIndexToRemove = selected.findIndex((it) => !it.name);
 
     if (emptyItemIndexToRemove > -1) {
@@ -273,6 +283,8 @@ const Home = ({ data }) => {
   const handleUnselect = (fieldsData) => {
     const foundIndex = selected.findIndex((it) => it.name === fieldsData.name);
     if (foundIndex < 0) return;
+    const SET_INACTIVE_STYLE_TO_CARD = false;
+    updateCopiedDataStyle(fieldsData, SET_INACTIVE_STYLE_TO_CARD);
     selected.splice(foundIndex, 1);
     setSelected([...selected, { ...base }]);
   };
@@ -293,7 +305,13 @@ const Home = ({ data }) => {
     for (let index = quantity; index < 10; index++) {
       newSelectedArray.push({ ...base });
     }
-    setSelected(newSelectedArray);
+    const newDataStyle = copiedData.map((it) => {
+      it.fields_data.active = false;
+      return it;
+    });
+
+    setSelected([...newSelectedArray]);
+    setCopiedData([...newDataStyle]);
   };
 
   useEffect(() => {
@@ -382,6 +400,7 @@ const Home = ({ data }) => {
                     type="button"
                     tw="overflow-hidden h-8"
                     className="add-gap-items"
+                    title="Toggle to filter"
                     key={`${category.text}${idx}`}
                     onClick={() => toggleCategoriesFilter(category, idx)}
                   >
@@ -411,6 +430,7 @@ const Home = ({ data }) => {
                     type="button"
                     tw="overflow-hidden h-8"
                     className="add-gap-items"
+                    title="Toggle to filter"
                     key={`${type.text}${idx}`}
                     onClick={() => toggleTypesFilter(type, idx)}
                   >

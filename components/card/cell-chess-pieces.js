@@ -9,6 +9,7 @@ const CellChessPieces = ({ rowIndex, columnIndex, data, style }) => {
       style={style}
       title="Click to select"
       fieldsData={fieldsData ? fieldsData.fields_data : null}
+      hasActiveState
       onCardClick={handleSelect}
     />
   ) : (
