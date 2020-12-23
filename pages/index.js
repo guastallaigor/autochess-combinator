@@ -248,14 +248,16 @@ const Home = ({ data }) => {
     return `${item.icon}-${columnIndex}-${rowIndex}`;
   };
 
-  const updateCopiedDataStyle = (fieldsData, active = true) => {
+  const hasUpdatedCopiedDataStyle = (fieldsData, active = true) => {
     const foundIndex = copiedData.findIndex(
       (it) => it.fields_data.name === fieldsData.name
     );
     if (foundIndex > -1) {
       copiedData[foundIndex].fields_data.active = active;
-      setCopiedData([...copiedData]);
+      return true;
     }
+
+    return false;
   };
 
   const handleSelect = (fieldsData) => {
@@ -263,13 +265,24 @@ const Home = ({ data }) => {
       (it) => it.name === fieldsData.name
     );
     if (isItemAlreadySelected) return;
-    updateCopiedDataStyle(fieldsData);
+    let hasUpdated = [];
+    hasUpdated.push(hasUpdatedCopiedDataStyle(fieldsData));
     const emptyItemIndexToRemove = selected.findIndex((it) => !it.name);
 
     if (emptyItemIndexToRemove > -1) {
       selected.splice(emptyItemIndexToRemove, 1);
     } else {
-      selected.pop();
+      const itemRemoved = selected.pop();
+      const SET_INACTIVE_STYLE_TO_CARD = false;
+      hasUpdated.push(
+        hasUpdatedCopiedDataStyle(itemRemoved, SET_INACTIVE_STYLE_TO_CARD)
+      );
+    }
+
+    const COPIED_DATA_IS_UPDATED = true;
+
+    if (hasUpdated.includes(COPIED_DATA_IS_UPDATED)) {
+      setCopiedData([...copiedData]);
     }
 
     setSelected([
@@ -284,7 +297,15 @@ const Home = ({ data }) => {
     const foundIndex = selected.findIndex((it) => it.name === fieldsData.name);
     if (foundIndex < 0) return;
     const SET_INACTIVE_STYLE_TO_CARD = false;
-    updateCopiedDataStyle(fieldsData, SET_INACTIVE_STYLE_TO_CARD);
+    const hasUpdated = hasUpdatedCopiedDataStyle(
+      fieldsData,
+      SET_INACTIVE_STYLE_TO_CARD
+    );
+
+    if (hasUpdated) {
+      setCopiedData([...copiedData]);
+    }
+
     selected.splice(foundIndex, 1);
     setSelected([...selected, { ...base }]);
   };
