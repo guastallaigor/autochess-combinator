@@ -335,15 +335,28 @@ const Home = ({ data }) => {
     setCopiedData([...newDataStyle]);
   };
 
-  const getFilteredData = (array, fieldName = "category") => {
-    let filteredData = data.filter((data) =>
-      data.fields_data[fieldName].some((it) => {
-        const item = array.find(
-          (ij) => ij.text.toLowerCase().trim() === it.toLowerCase().trim()
+  const getFilteredData = () => {
+    let firstSome;
+    let firstItem;
+    let secondSome;
+    let secondItem;
+    let filteredData = data.filter((subData) => {
+      firstSome = subData.fields_data.category.some((item) => {
+        firstItem = racesFilter.find(
+          (raceItem) =>
+            raceItem.text.toLowerCase().trim() === item.toLowerCase().trim()
         );
-        return item ? item.active : false;
-      })
-    );
+        return firstItem ? firstItem.active : false;
+      });
+      secondSome = subData.fields_data.cardType.some((item) => {
+        secondItem = classesFilter.find(
+          (classItem) =>
+            classItem.text.toLowerCase().trim() === item.toLowerCase().trim()
+        );
+        return secondItem ? secondItem.active : false;
+      });
+      return firstSome || secondSome;
+    });
     if (!filteredData.length) {
       filteredData = [...data.map((it) => ({ ...it }))];
     }
@@ -383,7 +396,7 @@ const Home = ({ data }) => {
       firstUpdateRaces.current = false;
       return;
     }
-    const filteredData = getFilteredData(racesFilter);
+    const filteredData = getFilteredData();
     setCopiedData(getSortedArrayByRace(filteredData, "fields_data"));
   }, [racesFilter]);
 
@@ -393,7 +406,7 @@ const Home = ({ data }) => {
       return;
     }
 
-    const filteredData = getFilteredData(classesFilter, "cardType");
+    const filteredData = getFilteredData();
     setCopiedData(getSortedArrayByRace(filteredData, "fields_data"));
   }, [classesFilter]);
 
@@ -421,23 +434,23 @@ const Home = ({ data }) => {
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
                 Races:
               </span>
-              {racesFilter.map((race, idx) => {
+              {racesFilter.map((raceItem, idx) => {
                 return (
                   <button
                     type="button"
                     tw="overflow-hidden h-8"
                     className="add-gap-items"
                     title="Toggle to filter"
-                    key={`${race.text}${idx}`}
-                    onClick={() => toggleRacesFilter(race, idx)}
+                    key={`${raceItem.text}${idx}`}
+                    onClick={() => toggleRacesFilter(raceItem, idx)}
                   >
                     <Image
-                      src={getImage(race.text)}
+                      src={getImage(raceItem.text)}
                       alt="Chess Icon Race Image"
                       layout="fixed"
                       tw="transition-opacity duration-200 ease-in-out"
                       className={
-                        race.active ? "active-filter" : "inactive-filter"
+                        raceItem.active ? "active-filter" : "inactive-filter"
                       }
                       width={32}
                       height={32}
@@ -451,23 +464,23 @@ const Home = ({ data }) => {
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
                 Classes:
               </span>
-              {classesFilter.map((it, idx) => {
+              {classesFilter.map((classItem, idx) => {
                 return (
                   <button
                     type="button"
                     tw="overflow-hidden h-8"
                     className="add-gap-items"
                     title="Toggle to filter"
-                    key={`${it.text}${idx}`}
-                    onClick={() => toggleClassesFilter(it, idx)}
+                    key={`${classItem.text}${idx}`}
+                    onClick={() => toggleClassesFilter(classItem, idx)}
                   >
                     <Image
-                      src={getImage(it.text)}
+                      src={getImage(classItem.text)}
                       alt="Chess Icon Class Image"
                       layout="fixed"
                       tw="transition-opacity duration-200 ease-in-out"
                       className={
-                        it.active ? "active-filter" : "inactive-filter"
+                        classItem.active ? "active-filter" : "inactive-filter"
                       }
                       width={32}
                       height={32}
