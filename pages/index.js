@@ -287,6 +287,15 @@ const Home = ({ data }) => {
     setTypesFilter([...typesFilter]);
   };
 
+  const clearAllCards = () => {
+    const newSelectedArray = selected.filter((it) => !it.name);
+    const quantity = newSelectedArray.length || 0;
+    for (let index = quantity; index < 10; index++) {
+      newSelectedArray.push({ ...base });
+    }
+    setSelected(newSelectedArray);
+  };
+
   useEffect(() => {
     const localTypes = getTypesSelectedBufs();
     const localCategories = getCategoriesSelectedBuffs(localTypes);
@@ -442,13 +451,35 @@ const Home = ({ data }) => {
           </div>
         </div>
         <div
-          tw="w-full xl:w-3/12 2xl:w-6/12 xl:max-w-xd 2xl:max-w-lg mt-6 xl:mt-0 lg:-mt-24"
+          tw="w-full xl:w-3/12 2xl:w-6/12 xl:max-w-xd 2xl:max-w-lg mt-6 xl:mt-0"
           className="height-cards"
         >
-          <h2 tw="xl:mb-6 text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
-            Combinator
-            <span tw="text-base"></span>
-          </h2>
+          <div tw="flex justify-center xl:justify-start flex-row flex-nowrap items-center">
+            <h2 tw="xl:mb-3 text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
+              Combinator
+            </h2>
+            <button
+              tw="xl:mb-3 ml-6 h-10 px-2 flex items-center justify-center transition-opacity duration-300 ease-in-out rounded-md bg-yellow-700 text-white hover:opacity-75"
+              type="button"
+              onClick={clearAllCards}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                tw="mr-2"
+              >
+                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" />
+              </svg>
+              <span tw="text-base">Clear cards</span>
+            </button>
+          </div>
           <div tw="w-full my-3 xl:my-6 flex-col flex-nowrap flex">
             <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start">
               <span tw="text-base text-white xl:pl-6 mt-3 md:mt-0 ml-1 md:ml-0">
@@ -482,7 +513,7 @@ const Home = ({ data }) => {
               })}
             </div>
           </div>
-          <div tw="h-80 mx-12 mt-6 xl:mx-7 2xl:mx-0 xl:mt-0 lg:h-full">
+          <div tw="h-80 mx-12 mt-6 xl:mx-7 2xl:mx-0 xl:mt-0 xl:h-full">
             <AutoSizer>
               {({ height, width }) => (
                 <Grid
