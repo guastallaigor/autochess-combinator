@@ -294,7 +294,14 @@ const racesBuffs = {
   },
 };
 
+// * Wizard has to be first in order
+// * to calculate the buffs
 const classesBuffs = {
+  Wizard: {
+    buff:
+      "<strong>(WIP Combination)</strong><br><strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
+    count: 0,
+  },
   Druid: {
     buff:
       "<strong>2:</strong> Require 1 less pieces when upgrading from 1-Star Druid to 2-Star. <br><strong>4:</strong> Require 1 less pieces when upgrading Druid.",
@@ -318,11 +325,6 @@ const classesBuffs = {
   Hunter: {
     buff:
       "<strong>3:</strong> All allied Hunters gain +25 ATK and have a 50% chance to not miss on attacks. <br><strong>6:</strong> All allied Hunters gain +85 ATK and have a 65% chance to not miss on attacks.",
-    count: 0,
-  },
-  Wizard: {
-    buff:
-      "<strong>(WIP Combination)</strong><br><strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
     count: 0,
   },
   Knight: {

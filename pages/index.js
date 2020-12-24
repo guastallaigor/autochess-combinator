@@ -147,23 +147,54 @@ const Home = ({ data }) => {
     });
 
     let localBuffs = [];
+    let isWizardActive = false;
     Object.keys(classesBuffs).forEach((element) => {
+      isWizardActive = localBuffs.find(
+        (it) => it.text === "Wizard" && it.value >= 2
+      );
       const value = classesBuffs[element].count;
       const buff = classesBuffs[element].buff;
       const hasAtLeastOne = value >= 1;
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
       const getTwoValue =
-        value === 3 ? 2 : value === 5 || value > 6 ? 4 : value;
-      const getAnotherTwoValue = value === 3 ? 2 : value > 4 ? 4 : value;
-      const getThreeValue =
-        value === 4 || value === 5 ? 3 : value > 6 ? 6 : value;
-      const getNineValue =
-        value === 4 || value === 5
-          ? 3
-          : value === 7 || value === 8
+        value === 3
+          ? isWizardActive
+            ? 4
+            : 2
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 4
+          : value > 6
           ? 6
-          : value > 9
+          : value;
+      const getAnotherTwoValue =
+        value === 3 ? (isWizardActive ? 4 : 2) : value >= 4 ? 4 : value;
+      const getThreeValue =
+        value === 4
+          ? 3
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 3
+          : value >= 6
+          ? 6
+          : value;
+      const getNineValue =
+        value === 4
+          ? 3
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 3
+          : value === 7
+          ? 6
+          : value === 8
+          ? isWizardActive
+            ? 9
+            : 6
+          : value >= 9
           ? 9
           : value;
       const objectToPush = {
