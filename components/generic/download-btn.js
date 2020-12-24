@@ -3,6 +3,7 @@ import download from "downloadjs";
 import { useState, useEffect, useRef } from "react";
 import html2canvas from "html2canvas";
 import SmallFrontCard from "../card/small-front-card";
+import BuffsImg from "./buffs-img";
 
 const prefixMap = `ml-3 h-9 px-3 flex items-center justify-center transition-opacity duration-300 ease-in-out rounded-md text-white hover:opacity-75`;
 const styleMap = {
@@ -12,7 +13,7 @@ const styleMap = {
 const getButtonStyle = ({ status }) => styleMap[status] || styleMap.default;
 const Button = styled.button(getButtonStyle);
 
-const DownloadBtn = ({ selected }) => {
+const DownloadBtn = ({ selected, buffs }) => {
   const [downloading, setDownloading] = useState(false);
   const first = useRef(true);
 
@@ -28,7 +29,7 @@ const DownloadBtn = ({ selected }) => {
       setTimeout(async () => {
         const drawGrid = document.querySelector("#grid-download");
         if (drawGrid) {
-          drawGrid.style.display = "grid";
+          drawGrid.style.display = "block";
           const canvas = await html2canvas(drawGrid, {
             backgroundColor: "rgb(31, 41, 55)",
           });
@@ -55,20 +56,29 @@ const DownloadBtn = ({ selected }) => {
       {downloading && (
         <div
           id="grid-download"
-          tw="fixed grid-cols-5"
+          tw="fixed"
           style={{
             right: "-9999px",
             bottom: "-9999px",
             display: "none",
           }}
         >
-          {selected.map((fieldsData) =>
-            fieldsData && fieldsData.name ? (
-              <div tw="ml-6 mt-6" key={fieldsData.icon}>
-                <SmallFrontCard fieldsData={fieldsData} />
-              </div>
-            ) : null
-          )}
+          <h1 tw="mt-6 text-center text-3xl tracking-tight font-extrabold text-yellow-100 w-full">
+            <span tw="block">Auto Chess Combinator</span>
+            <span tw="block text-sm">by @guastallaigor</span>
+          </h1>
+          <div tw="flex flex-wrap items-center flex-row justify-center mt-6 mb-1 min-h-32">
+            <BuffsImg buffs={buffs} priority={true} />
+          </div>
+          <div tw="grid grid-cols-5 mb-9 pr-11">
+            {selected.map((fieldsData) =>
+              fieldsData && fieldsData.name ? (
+                <div tw="ml-6 mt-6" key={fieldsData.icon}>
+                  <SmallFrontCard fieldsData={fieldsData} />
+                </div>
+              ) : null
+            )}
+          </div>
         </div>
       )}
       <Button

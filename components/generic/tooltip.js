@@ -5,13 +5,25 @@ const Tooltip = (props) => {
   let timeoutClear;
   const [active, setActive] = useState(false);
 
-  const showTip = () => {
+  const isTabletOrBelow = () => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth < 769) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const showTip = (blockTablet) => {
+    if (isTabletOrBelow() && blockTablet) return;
     timeout = setTimeout(() => {
       setActive(true);
     }, props.delay || 400);
   };
 
-  const hideTip = () => {
+  const hideTip = (blockTablet) => {
+    if (isTabletOrBelow() && blockTablet) return;
     clearInterval(timeout);
     timeoutClear = setTimeout(() => {
       setActive(false);
@@ -23,9 +35,9 @@ const Tooltip = (props) => {
     <>
       <div
         className="tooltip-wrapper"
-        onMouseEnter={showTip}
-        onMouseLeave={hideTip}
-        onClick={active ? hideTip : showTip}
+        onMouseEnter={() => showTip(true)}
+        onMouseLeave={() => hideTip(true)}
+        onClick={() => (active ? hideTip(false) : showTip(false))}
       >
         {props.children}
         {active && (

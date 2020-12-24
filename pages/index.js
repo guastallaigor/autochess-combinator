@@ -7,7 +7,7 @@ import CellChessPieces from "../components/card/cell-chess-pieces";
 import CellCombinator from "../components/card/cell-combinator";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
-import Tooltip from "../components/generic/tooltip";
+import BuffsImg from "../components/generic/buffs-img";
 import DownloadBtn from "../components/generic/download-btn";
 import { base, baseComplete, races, classes } from "../assets/static";
 import { getSortedArrayByRace } from "../utils/index";
@@ -349,41 +349,16 @@ const Home = ({ data }) => {
             </button>
           </div>
           <div tw="w-full mb-3 xl:mb-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-5 xl:mt-2">
+            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-5 mt-5 xl:mt-2">
               <span tw="text-white mr-4">Quantity:</span>
               <span tw="h-9 text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 text-center flex items-center">
                 {selected.filter((it) => it.name).length} / 10
               </span>
-              <DownloadBtn selected={selected} />
+              <DownloadBtn selected={selected} buffs={buffs} />
             </div>
             <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start min-h-32">
               <span tw="text-base text-white xl:pl-6 ml-1 md:ml-0">Buffs:</span>
-              {buffs.map((buff, idx) => {
-                return (
-                  <div
-                    key={`${buff.text}${idx}`}
-                    tw="h-8 relative"
-                    className="add-gap-items"
-                  >
-                    <div
-                      tw="absolute text-white z-10 font-bold -top-2 -right-1 text-sm"
-                      style={{ color: buff.penalty && "red" }}
-                    >
-                      {buff.value}
-                    </div>
-                    <Tooltip content={buff.buff} direction="bottom">
-                      <Image
-                        src={getImage(buff.text)}
-                        alt="Chess Icon Image"
-                        layout="fixed"
-                        width={32}
-                        height={32}
-                        quality={70}
-                      />
-                    </Tooltip>
-                  </div>
-                );
-              })}
+              <BuffsImg buffs={buffs} />
             </div>
           </div>
           <div tw="h-80 mx-12 mt-6 xl:mx-7 2xl:mx-0 xl:mt-0 xl:h-full">
