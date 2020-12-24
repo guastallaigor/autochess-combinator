@@ -41,6 +41,10 @@ const Home = ({ data }) => {
     });
 
     let localBuffs = [];
+    const isWizardActive = localClasses.find(
+      (it) => it.text === "Wizard" && it.value >= 2
+    );
+    const witcher = localClasses.find((it) => it.text === "Witcher");
     Object.keys(racesBuffs).forEach((element) => {
       const value = racesBuffs[element].count;
       const buff = racesBuffs[element].buff;
@@ -48,11 +52,21 @@ const Home = ({ data }) => {
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
       const getTwoValue =
-        value === 3 ? 2 : value === 5 || value > 6 ? 4 : value;
-      const getAnotherTwoValue = value === 3 ? 2 : value > 4 ? 4 : value;
+        value === 3
+          ? isWizardActive
+            ? 4
+            : 2
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 4
+          : value > 6
+          ? 4
+          : value;
+      const getAnotherTwoValue =
+        value === 3 ? (isWizardActive ? 4 : 2) : value > 4 ? 4 : value;
       const getThreeValue =
         value === 4 || value === 5 ? 3 : value > 6 ? 6 : value;
-      const witcher = localClasses.find((it) => it.text === "Witcher");
       const objectToPush = {
         Beast: hasAtLeastTwo
           ? {
@@ -79,7 +93,8 @@ const Home = ({ data }) => {
         Dragon: hasAtLeastThree
           ? {
               text: "Dragon",
-              value: value === 4 ? 3 : value > 5 ? 5 : value,
+              value:
+                value === 4 ? (isWizardActive ? 5 : 3) : value >= 5 ? 5 : value,
               buff,
             }
           : null,
@@ -104,11 +119,19 @@ const Home = ({ data }) => {
           ? {
               text: "Feathered",
               value:
-                value === 4 || value === 5
+                value === 4
                   ? 3
-                  : value === 7 || value === 8
+                  : value === 5
+                  ? isWizardActive
+                    ? 6
+                    : 3
+                  : value === 7
                   ? 6
-                  : value > 9
+                  : value === 8
+                  ? isWizardActive
+                    ? 9
+                    : 6
+                  : value >= 9
                   ? 9
                   : value,
               buff,
@@ -121,7 +144,7 @@ const Home = ({ data }) => {
           ? { text: "Goblin", value: getThreeValue, buff }
           : null,
         Kira: hasAtLeastTwo
-          ? { text: "Kira", value: value > 2 ? 2 : value, buff }
+          ? { text: "Kira", value: value >= 2 ? 2 : value, buff }
           : null,
         Marine: hasAtLeastTwo
           ? { text: "Marine", value: getAnotherTwoValue, buff }
@@ -147,23 +170,54 @@ const Home = ({ data }) => {
     });
 
     let localBuffs = [];
+    let isWizardActive = false;
     Object.keys(classesBuffs).forEach((element) => {
+      isWizardActive = localBuffs.find(
+        (it) => it.text === "Wizard" && it.value >= 2
+      );
       const value = classesBuffs[element].count;
       const buff = classesBuffs[element].buff;
       const hasAtLeastOne = value >= 1;
       const hasAtLeastTwo = value >= 2;
       const hasAtLeastThree = value >= 3;
       const getTwoValue =
-        value === 3 ? 2 : value === 5 || value > 6 ? 4 : value;
-      const getAnotherTwoValue = value === 3 ? 2 : value > 4 ? 4 : value;
-      const getThreeValue =
-        value === 4 || value === 5 ? 3 : value > 6 ? 6 : value;
-      const getNineValue =
-        value === 4 || value === 5
-          ? 3
-          : value === 7 || value === 8
+        value === 3
+          ? isWizardActive
+            ? 4
+            : 2
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 4
+          : value > 6
           ? 6
-          : value > 9
+          : value;
+      const getAnotherTwoValue =
+        value === 3 ? (isWizardActive ? 4 : 2) : value >= 4 ? 4 : value;
+      const getThreeValue =
+        value === 4
+          ? 3
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 3
+          : value >= 6
+          ? 6
+          : value;
+      const getNineValue =
+        value === 4
+          ? 3
+          : value === 5
+          ? isWizardActive
+            ? 6
+            : 3
+          : value === 7
+          ? 6
+          : value === 8
+          ? isWizardActive
+            ? 9
+            : 6
+          : value >= 9
           ? 9
           : value;
       const objectToPush = {
