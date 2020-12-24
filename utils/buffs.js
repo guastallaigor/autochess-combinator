@@ -177,7 +177,7 @@ const getClassesSelectedBufs = (selected) => {
         : value >= 6
         ? 6
         : value;
-    const getNineValue =
+    const getNineMaxValue =
       value === 4
         ? 3
         : value === 5
@@ -204,12 +204,12 @@ const getClassesSelectedBufs = (selected) => {
       Warrior: hasAtLeastThree
         ? {
             text: "Warrior",
-            value: getNineValue,
+            value: getNineMaxValue,
             buff,
           }
         : null,
       Assassin: hasAtLeastThree
-        ? { text: "Assassin", value: getNineValue, buff }
+        ? { text: "Assassin", value: getNineMaxValue, buff }
         : null,
       Shaman: hasAtLeastTwo
         ? { text: "Shaman", value: getAnotherTwoValue, buff }
@@ -250,7 +250,7 @@ const getClassesSelectedBufs = (selected) => {
         ? { text: "Priest", value: value > 2 ? 2 : value, buff }
         : null,
       Mage: hasAtLeastThree
-        ? { text: "Mage", value: getNineValue, buff }
+        ? { text: "Mage", value: getNineMaxValue, buff }
         : null,
       Mech: hasAtLeastThree
         ? { text: "Mech", value: getThreeValue, buff }
@@ -267,37 +267,36 @@ const getClassesSelectedBufs = (selected) => {
 const setFourWizardsBuff = (buffs) => {
   const otherActiveBuff = buffs.find((it) => it.text !== "Wizard");
   const otherBuffValue = otherActiveBuff.value;
-  const getFourValue = otherBuffValue >= 3 ? 4 : otherBuffValue;
-  const getNineValue = otherBuffValue >= 5 ? 9 : otherBuffValue;
-  const getSixValue = otherBuffValue >= 5 ? 6 : otherBuffValue;
-  const getAnotherSixValue = otherBuffValue >= 3 ? 6 : otherBuffValue;
+  const getFourMaxValue = otherBuffValue >= 2 ? 4 : otherBuffValue;
+  const getNineMaxValue = otherBuffValue >= 3 ? 9 : otherBuffValue;
+  const getSixMaxValue = otherBuffValue >= 3 ? 6 : otherBuffValue;
   otherActiveBuff.value = {
-    Druid: getFourValue,
-    Warrior: getNineValue,
-    Assassin: getNineValue,
-    Shaman: getFourValue,
-    Hunter: getSixValue,
-    Knight: getAnotherSixValue,
+    Druid: getFourMaxValue,
+    Warrior: getNineMaxValue,
+    Assassin: getNineMaxValue,
+    Shaman: getFourMaxValue,
+    Hunter: getSixMaxValue,
+    Knight: getSixMaxValue,
     Witcher: otherBuffValue,
-    Warlock: getAnotherSixValue,
+    Warlock: getSixMaxValue,
     Priest: otherBuffValue,
-    Mage: getNineValue,
-    Mech: getSixValue,
-    Beast: getAnotherSixValue,
-    Insectoid: getFourValue,
-    Cave: getAnotherSixValue,
+    Mage: getNineMaxValue,
+    Mech: getSixMaxValue,
+    Beast: getSixMaxValue,
+    Insectoid: getFourMaxValue,
+    Cave: getSixMaxValue,
     Demon: otherBuffValue,
-    Divinity: getFourValue,
-    Dragon: otherBuffValue >= 4 ? 5 : otherBuffValue,
-    Egersis: getAnotherSixValue,
-    Human: getSixValue,
+    Divinity: getFourMaxValue,
+    Dragon: otherBuffValue >= 3 ? 5 : otherBuffValue,
+    Egersis: getSixMaxValue,
+    Human: getSixMaxValue,
     Dwarf: otherBuffValue,
-    Feathered: getNineValue,
-    Glacier: getAnotherSixValue,
-    Goblin: getSixValue,
+    Feathered: getNineMaxValue,
+    Glacier: getSixMaxValue,
+    Goblin: getSixMaxValue,
     Kira: otherBuffValue,
-    Marine: getFourValue,
-    Spirits: getFourValue,
+    Marine: getFourMaxValue,
+    Spirits: getFourMaxValue,
   }[otherActiveBuff.text];
 
   return buffs;
