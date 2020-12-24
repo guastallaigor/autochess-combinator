@@ -8,6 +8,7 @@ import CellCombinator from "../components/card/cell-combinator";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
 import Tooltip from "../components/generic/tooltip";
+import DownloadBtn from "../components/generic/download-btn";
 import { base, baseComplete, races, classes } from "../assets/static";
 import { getSortedArrayByRace } from "../utils/index";
 import { getImage, makeId } from "../utils/index";
@@ -348,11 +349,12 @@ const Home = ({ data }) => {
             </button>
           </div>
           <div tw="w-full mb-3 xl:mb-6 flex-col flex-nowrap flex">
-            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-3 xl:mt-0 mt-3">
+            <div tw="flex flex-nowrap items-center flex-row justify-center xl:justify-start ml-1 md:ml-0 xl:pl-6 min-h-32 mb-5 xl:mt-2">
               <span tw="text-white mr-4">Quantity:</span>
-              <span tw="text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 py-1">
+              <span tw="h-9 text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 text-center flex items-center">
                 {selected.filter((it) => it.name).length} / 10
               </span>
+              <DownloadBtn selected={selected} />
             </div>
             <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start min-h-32">
               <span tw="text-base text-white xl:pl-6 ml-1 md:ml-0">Buffs:</span>

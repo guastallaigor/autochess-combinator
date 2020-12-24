@@ -1,20 +1,9 @@
 import tw, { styled } from "twin.macro";
 import Image from "next/image";
 import { getImage, getFromArrayOrString } from "../../utils/index";
+import { getContainerStyle } from "../../utils/css";
 
-const prefixMap = `flex flex-col flex-nowrap transition-all duration-300 ease-in-out cursor-pointer hover:shadow-xl relative top-0 hover:top-2 hover:opacity-80 w-48 overflow-hidden rounded-lg bg-gradient-to-r`;
-const styleMap = {
-  Common: tw`${prefixMap} from-gray-200 to-gray-400`,
-  Rare: tw`${prefixMap} from-blue-200 to-blue-400`,
-  Uncommon: tw`${prefixMap} from-green-200 to-green-400`,
-  Epic: tw`${prefixMap} from-pink-200 to-pink-400`,
-  Legendary: tw`${prefixMap} from-yellow-200 to-yellow-400`,
-  default: tw`${prefixMap} from-gray-200 to-gray-400`,
-};
-const getContainerStyle = ({ quality }) =>
-  styleMap[quality] || styleMap.default;
 const Container = styled.div(getContainerStyle);
-
 const prefixName = `font-semibold truncate text-sm`;
 const getNameStyle = ({ banned }) =>
   banned ? tw`${prefixName} text-red-500` : tw`${prefixName} text-gray-700`;
@@ -29,7 +18,6 @@ const FrontCard = ({
 }) => {
   return (
     <Container
-      className="front-card"
       quality={getFromArrayOrString(fieldsData.cardQuality)}
       title={fieldsData.banned ? "This card is banned" : title}
       style={{

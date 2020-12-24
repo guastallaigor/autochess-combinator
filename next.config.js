@@ -1,7 +1,7 @@
 const withPWA = require("next-pwa");
 module.exports = withPWA({
   images: {
-    domains: ["ik.imagekit.io"],
+    domains: ["ik.imagekit.io", "static.ilongyuan.cn"],
   },
   pwa: {
     dest: "public",

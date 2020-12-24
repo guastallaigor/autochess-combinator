@@ -19,7 +19,7 @@ body,
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: rgba(31, 41, 55);
+  background-color: rgb(31, 41, 55);
 }
 
 ::-moz-selection {
@@ -120,4 +120,8 @@ img {
   .height-cards {
     height: calc(100vh - 180px);
   }
+}
+
+.min-h-60 {
+  min-height: 55px;
 }
