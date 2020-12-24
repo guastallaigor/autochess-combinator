@@ -63,9 +63,9 @@ const FrontCard = ({
           <Image
             src={fieldsData.cardImg}
             alt="Icon image"
-            layout="intrinsic"
-            tw="overflow-hidden"
-            width={135}
+            layout="fixed"
+            tw="object-contain"
+            width={200}
             height={300}
             quality={70}
           />
