@@ -1,13 +1,8 @@
 import tw from "twin.macro";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useState, useEffect, useRef } from "react";
-import { FixedSizeGrid as Grid } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
-import CellChessPieces from "../components/card/cell-chess-pieces";
-import CellCombinator from "../components/card/cell-combinator";
-import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
-import Tooltip from "../components/generic/tooltip";
 import {
   base,
   baseComplete,
@@ -18,6 +13,19 @@ import {
 } from "../assets/static";
 import { getSortedArrayByRace } from "../utils/index";
 import { getImage, makeId } from "../utils/index";
+import { FixedSizeGrid as Grid } from "react-window";
+
+const AutoSizer = dynamic(() => import("react-virtualized-auto-sizer"));
+const FooterWrapper = dynamic(() =>
+  import("../components/layout/footer-wrapper")
+);
+const CellCombinator = dynamic(() =>
+  import("../components/card/cell-combinator")
+);
+const CellChessPieces = dynamic(() =>
+  import("../components/card/cell-chess-pieces")
+);
+const Tooltip = dynamic(() => import("../components/generic/tooltip"));
 
 const Home = ({ data }) => {
   const payload = Array.from(Array(10).keys()).map((it) => ({ ...base }));
