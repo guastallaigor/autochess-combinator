@@ -25,32 +25,17 @@ const SmallFrontCard = ({ fieldsData }) => {
           <span tw="pl-1 text-yellow-400">{fieldsData.cardExpend}</span>
         </div>
       </div>
-      {fieldsData.manual ? (
-        <div tw="relative z-0 w-full overflow-hidden flex justify-center">
-          <Image
-            src={fieldsData.cardImg}
-            alt="Icon image"
-            layout="fixed"
-            tw="object-contain"
-            width={200}
-            height={300}
-            quality={70}
-            priority={true}
-          />
-        </div>
-      ) : (
-        <div tw="relative z-0 w-full overflow-hidden flex justify-center">
-          <Image
-            src={fieldsData.icon}
-            alt="Icon image"
-            layout="fixed"
-            width={100}
-            height={100}
-            quality={70}
-            priority={true}
-          />
-        </div>
-      )}
+      <div tw="relative z-0 w-full overflow-hidden flex justify-center">
+        <Image
+          src={fieldsData.icon}
+          alt="Icon image"
+          layout="fixed"
+          width={100}
+          height={100}
+          quality={70}
+          priority={true}
+        />
+      </div>
       <div
         tw="flex flex-row flex-nowrap relative justify-center items-center bg-white"
         className="min-h-60"
