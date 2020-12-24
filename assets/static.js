@@ -299,7 +299,7 @@ const racesBuffs = {
 const classesBuffs = {
   Wizard: {
     buff:
-      "<strong>(WIP Combination)</strong><br><strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
+      "<strong>2:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces. <br><strong>4:</strong> 1 less chess piece(s) are required for activating synergy with at least 4 unique chess pieces; if your deployed chess pieces activate only one synergy of a race/class other than Wizard synergy, then the highest tier of this synergy will be activated immediately.",
     count: 0,
   },
   Druid: {
