@@ -16,6 +16,7 @@ const Button = styled.button(getButtonStyle);
 const DownloadBtn = ({ selected, buffs }) => {
   const [downloading, setDownloading] = useState(false);
   const first = useRef(true);
+  let interval;
 
   useEffect(() => {
     if (first.current) {
@@ -32,18 +33,31 @@ const DownloadBtn = ({ selected, buffs }) => {
           drawGrid.style.display = "block";
           const canvas = await html2canvas(drawGrid, {
             backgroundColor: "rgb(31, 41, 55)",
+            imageTimeout: 0,
+            logging: process.env.NODE_ENV === "development",
+            proxy: process.env.NEXT_PUBLIC_PROXY,
+            useCORS: true,
+            allowTaint: true,
           });
-          canvas.toBlob((blob) => {
-            download(blob, "autochess-combinator.png", "image/png");
-            drawGrid.style.display = "none";
-            setDownloading(false);
-          }, "image/png");
+          const dataURL = canvas.toDataURL("png");
+          interval = setInterval(() => {
+            if (window) {
+              download(dataURL, "autochess-combinator.png", "image/png");
+              clearInterval(interval);
+              drawGrid.style.display = "none";
+              setDownloading(false);
+            }
+          }, 500);
         }
       });
     } catch (error) {
       console.error(error, ":download_error");
       setDownloading(false);
     }
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [downloading]);
 
   const onDownload = () => {

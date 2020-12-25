@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start"
   },
@@ -12,6 +12,7 @@
     "axios": "^0.21.0",
     "downloadjs": "^1.4.7",
     "html2canvas": "^1.0.0-rc.7",
+    "html2canvas-proxy": "^1.0.1",
     "next": "10.0.3",
     "next-pwa": "^5.0.0",
     "postcss": "^8.2.1",

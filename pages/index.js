@@ -8,6 +8,7 @@ import CellCombinator from "../components/card/cell-combinator";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
 import BuffsImg from "../components/generic/buffs-img";
+import PWABtn from "../components/generic/pwa-btn";
 import DownloadBtn from "../components/generic/download-btn";
 import { base, baseComplete, races, classes } from "../assets/static";
 import { getSortedArrayByRace } from "../utils/index";
@@ -228,6 +229,7 @@ const Home = ({ data }) => {
 
   return (
     <section tw="flex flex-col justify-center items-center">
+      <PWABtn />
       <HeaderWrapper />
       <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap xl:my-6 my-3 relative h-full items-center justify-center">
         <div
