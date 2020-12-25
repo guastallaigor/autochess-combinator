@@ -31,6 +31,7 @@ const Home = ({ data }) => {
   const [maxItemsPerRowCombinator, setMaxItemsPerRowCombinator] = useState(2);
   const firstUpdateRaces = useRef(true);
   const firstUpdateClasses = useRef(true);
+  const [isTabletOrBelow, setIsTabletOrBelow] = useState(false);
 
   const getItemKey = ({ columnIndex, data, rowIndex }) => {
     const item = data.copiedData[columnIndex + rowIndex * data.maxItemsPerRow];
@@ -222,6 +223,8 @@ const Home = ({ data }) => {
     const { innerWidth } = window;
     const isXl = innerWidth >= 1280 && innerWidth < 1536;
     const isLgAndBelow = innerWidth < 1280;
+    const isMdAndBelow = innerWidth < 769;
+    setIsTabletOrBelow(isMdAndBelow);
     setMaxItemsPerRow(isXl ? 4 : 5);
     setMaxItemsPerRowCombinator(isXl ? 1 : isLgAndBelow ? 5 : 2);
   }, []);
@@ -354,7 +357,9 @@ const Home = ({ data }) => {
               <span tw="h-9 text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 text-center flex items-center">
                 {selected.filter((it) => it.name).length} / 10
               </span>
-              <DownloadBtn selected={selected} buffs={buffs} />
+              {isTabletOrBelow && (
+                <DownloadBtn selected={selected} buffs={buffs} />
+              )}
             </div>
             <div tw="flex flex-wrap items-center flex-row justify-center xl:justify-start min-h-32">
               <span tw="text-base text-white xl:pl-6 ml-1 md:ml-0">Buffs:</span>
