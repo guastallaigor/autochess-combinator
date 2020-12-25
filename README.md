@@ -23,7 +23,8 @@
 - Quantity shows how many cards are selected;
 - The "Clear" button will clear all the selected cards and clear the buffs;
 - You can't select banned or already selected cards;
-- It's a PWA (Progressive Web App), you can install it if you want.
+- You can download your build by clicking the "Download" button (unfortunately is **only** available for PC right now)
+- It's a PWA (Progressive Web App), you can install it if you want (not supported in all devices)
 
 ## Usage
 
