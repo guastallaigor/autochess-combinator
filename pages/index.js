@@ -357,7 +357,7 @@ const Home = ({ data }) => {
               <span tw="h-9 text-white font-bold bg-yellow-700 shadow-md rounded-md px-2 text-center flex items-center">
                 {selected.filter((it) => it.name).length} / 10
               </span>
-              {isTabletOrBelow && (
+              {!isTabletOrBelow && (
                 <DownloadBtn selected={selected} buffs={buffs} />
               )}
             </div>
