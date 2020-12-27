@@ -2,15 +2,11 @@ import { racesBuffs, classesBuffs } from "../assets/static";
 
 const getRacesSelectedBuffs = (selected, localClasses) => {
   Object.keys(racesBuffs).forEach((element) => {
-    racesBuffs[element].count = selected.filter((it) =>
-      it.category.includes(element)
-    ).length;
+    racesBuffs[element].count = selected.filter((it) => it.category.includes(element)).length;
   });
 
   let localBuffs = [];
-  const isWizardTwoActive = localClasses.find(
-    (it) => it.text === "Wizard" && it.value >= 2
-  );
+  const isWizardTwoActive = localClasses.find((it) => it.text === "Wizard" && it.value >= 2);
   const witcher = localClasses.find((it) => it.text === "Witcher");
   Object.keys(racesBuffs).forEach((element) => {
     const value = racesBuffs[element].count;
@@ -19,75 +15,50 @@ const getRacesSelectedBuffs = (selected, localClasses) => {
     const hasAtLeastTwo = value >= 2;
     const hasAtLeastThree = value >= 3;
     const getTwoValue =
-      value === 3
-        ? isWizardTwoActive
-          ? 4
-          : 2
-        : value === 5
-        ? isWizardTwoActive
-          ? 6
-          : 4
-        : value > 6
-        ? 4
-        : value;
-    const getAnotherTwoValue =
-      value === 3 ? (isWizardTwoActive ? 4 : 2) : value > 4 ? 4 : value;
-    const getThreeValue =
-      value === 4 || value === 5 ? 3 : value > 6 ? 6 : value;
+      value === 3 ? (isWizardTwoActive ? 4 : 2) : value === 5 ? (isWizardTwoActive ? 6 : 4) : value > 6 ? 4 : value;
+    const getAnotherTwoValue = value === 3 ? (isWizardTwoActive ? 4 : 2) : value > 4 ? 4 : value;
+    const getThreeValue = value === 4 || value === 5 ? 3 : value > 6 ? 6 : value;
     const objectToPush = {
       Beast: hasAtLeastTwo
         ? {
             text: "Beast",
             value: getTwoValue,
-            buff,
+            buff
           }
         : null,
-      Insectoid: hasAtLeastTwo
-        ? { text: "Insectoid", value: getAnotherTwoValue, buff }
-        : null,
+      Insectoid: hasAtLeastTwo ? { text: "Insectoid", value: getAnotherTwoValue, buff } : null,
       Cave: hasAtLeastTwo ? { text: "Cave", value: getTwoValue, buff } : null,
       Demon: hasAtLeastOne
         ? {
             text: "Demon",
             value,
             penalty: value > 1 ? !witcher || witcher.demonPenalty : false,
-            buff,
+            buff
           }
         : null,
-      Divinity: hasAtLeastTwo
-        ? { text: "Divinity", value: getAnotherTwoValue, buff }
-        : null,
+      Divinity: hasAtLeastTwo ? { text: "Divinity", value: getAnotherTwoValue, buff } : null,
       Dragon: hasAtLeastThree
         ? {
             text: "Dragon",
-            value:
-              value === 4
-                ? isWizardTwoActive
-                  ? 5
-                  : 3
-                : value >= 5
-                ? 5
-                : value,
-            buff,
+            value: value === 4 ? (isWizardTwoActive ? 5 : 3) : value >= 5 ? 5 : value,
+            buff
           }
         : null,
       Egersis: hasAtLeastTwo
         ? {
             text: "Egersis",
             value: getTwoValue,
-            buff,
+            buff
           }
         : null,
       Human: hasAtLeastThree
         ? {
             text: "Human",
             value: getThreeValue,
-            buff,
+            buff
           }
         : null,
-      Dwarf: hasAtLeastOne
-        ? { text: "Dwarf", value: value > 2 ? 2 : value, buff }
-        : null,
+      Dwarf: hasAtLeastOne ? { text: "Dwarf", value: value > 2 ? 2 : value, buff } : null,
       Feathered: hasAtLeastThree
         ? {
             text: "Feathered",
@@ -107,24 +78,14 @@ const getRacesSelectedBuffs = (selected, localClasses) => {
                 : value >= 9
                 ? 9
                 : value,
-            buff,
+            buff
           }
         : null,
-      Glacier: hasAtLeastTwo
-        ? { text: "Glacier", value: getTwoValue, buff }
-        : null,
-      Goblin: hasAtLeastThree
-        ? { text: "Goblin", value: getThreeValue, buff }
-        : null,
-      Kira: hasAtLeastTwo
-        ? { text: "Kira", value: value >= 2 ? 2 : value, buff }
-        : null,
-      Marine: hasAtLeastTwo
-        ? { text: "Marine", value: getAnotherTwoValue, buff }
-        : null,
-      Spirits: hasAtLeastTwo
-        ? { text: "Spirits", value: getAnotherTwoValue, buff }
-        : null,
+      Glacier: hasAtLeastTwo ? { text: "Glacier", value: getTwoValue, buff } : null,
+      Goblin: hasAtLeastThree ? { text: "Goblin", value: getThreeValue, buff } : null,
+      Kira: hasAtLeastTwo ? { text: "Kira", value: value >= 2 ? 2 : value, buff } : null,
+      Marine: hasAtLeastTwo ? { text: "Marine", value: getAnotherTwoValue, buff } : null,
+      Spirits: hasAtLeastTwo ? { text: "Spirits", value: getAnotherTwoValue, buff } : null
     }[element];
 
     if (objectToPush) {
@@ -137,46 +98,22 @@ const getRacesSelectedBuffs = (selected, localClasses) => {
 
 const getClassesSelectedBufs = (selected) => {
   Object.keys(classesBuffs).forEach((element) => {
-    classesBuffs[element].count = selected.filter((it) =>
-      it.cardType.includes(element)
-    ).length;
+    classesBuffs[element].count = selected.filter((it) => it.cardType.includes(element)).length;
   });
 
   let localBuffs = [];
   let isWizardTwoActive = false;
   Object.keys(classesBuffs).forEach((element) => {
-    isWizardTwoActive = localBuffs.find(
-      (it) => it.text === "Wizard" && it.value >= 2
-    );
+    isWizardTwoActive = localBuffs.find((it) => it.text === "Wizard" && it.value >= 2);
     const value = classesBuffs[element].count;
     const buff = classesBuffs[element].buff;
     const hasAtLeastOne = value >= 1;
     const hasAtLeastTwo = value >= 2;
     const hasAtLeastThree = value >= 3;
     const getTwoValue =
-      value === 3
-        ? isWizardTwoActive
-          ? 4
-          : 2
-        : value === 5
-        ? isWizardTwoActive
-          ? 6
-          : 4
-        : value > 6
-        ? 6
-        : value;
-    const getAnotherTwoValue =
-      value === 3 ? (isWizardTwoActive ? 4 : 2) : value >= 4 ? 4 : value;
-    const getThreeValue =
-      value === 4
-        ? 3
-        : value === 5
-        ? isWizardTwoActive
-          ? 6
-          : 3
-        : value >= 6
-        ? 6
-        : value;
+      value === 3 ? (isWizardTwoActive ? 4 : 2) : value === 5 ? (isWizardTwoActive ? 6 : 4) : value > 6 ? 6 : value;
+    const getAnotherTwoValue = value === 3 ? (isWizardTwoActive ? 4 : 2) : value >= 4 ? 4 : value;
+    const getThreeValue = value === 4 ? 3 : value === 5 ? (isWizardTwoActive ? 6 : 3) : value >= 6 ? 6 : value;
     const getNineMaxValue =
       value === 4
         ? 3
@@ -198,37 +135,31 @@ const getClassesSelectedBufs = (selected) => {
         ? {
             text: "Druid",
             value: getAnotherTwoValue,
-            buff,
+            buff
           }
         : null,
       Warrior: hasAtLeastThree
         ? {
             text: "Warrior",
             value: getNineMaxValue,
-            buff,
+            buff
           }
         : null,
-      Assassin: hasAtLeastThree
-        ? { text: "Assassin", value: getNineMaxValue, buff }
-        : null,
-      Shaman: hasAtLeastTwo
-        ? { text: "Shaman", value: getAnotherTwoValue, buff }
-        : null,
-      Hunter: hasAtLeastThree
-        ? { text: "Hunter", value: getThreeValue, buff }
-        : null,
+      Assassin: hasAtLeastThree ? { text: "Assassin", value: getNineMaxValue, buff } : null,
+      Shaman: hasAtLeastTwo ? { text: "Shaman", value: getAnotherTwoValue, buff } : null,
+      Hunter: hasAtLeastThree ? { text: "Hunter", value: getThreeValue, buff } : null,
       Wizard: hasAtLeastTwo
         ? {
             text: "Wizard",
             value: value === 3 ? 4 : value >= 4 ? 4 : value,
-            buff,
+            buff
           }
         : null,
       Knight: hasAtLeastTwo
         ? {
             text: "Knight",
             value: getTwoValue,
-            buff,
+            buff
           }
         : null,
       Witcher: hasAtLeastOne
@@ -236,25 +167,19 @@ const getClassesSelectedBufs = (selected) => {
             text: "Witcher",
             value: value > 2 ? 2 : value,
             demonPenalty: value !== 2,
-            buff,
+            buff
           }
         : null,
       Warlock: hasAtLeastTwo
         ? {
             text: "Warlock",
             value: getTwoValue,
-            buff,
+            buff
           }
         : null,
-      Priest: hasAtLeastOne
-        ? { text: "Priest", value: value > 2 ? 2 : value, buff }
-        : null,
-      Mage: hasAtLeastThree
-        ? { text: "Mage", value: getNineMaxValue, buff }
-        : null,
-      Mech: hasAtLeastThree
-        ? { text: "Mech", value: getThreeValue, buff }
-        : null,
+      Priest: hasAtLeastOne ? { text: "Priest", value: value > 2 ? 2 : value, buff } : null,
+      Mage: hasAtLeastThree ? { text: "Mage", value: getNineMaxValue, buff } : null,
+      Mech: hasAtLeastThree ? { text: "Mech", value: getThreeValue, buff } : null
     }[element];
 
     if (objectToPush) {
@@ -296,7 +221,7 @@ const setFourWizardsBuff = (buffs) => {
     Goblin: getSixMaxValue,
     Kira: otherBuffValue,
     Marine: getFourMaxValue,
-    Spirits: getFourMaxValue,
+    Spirits: getFourMaxValue
   }[otherActiveBuff.text];
 
   return buffs;

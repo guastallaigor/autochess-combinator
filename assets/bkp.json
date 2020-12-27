@@ -1371,11 +1371,7 @@
           "cardImg": "https://static.ilongyuan.cn/official_website/e52b47a8c88/30ba66d0be0171f57dd69ad0028ce52e.png",
           "cardType": ["Warrior"],
           "category": ["Marine"],
-          "chessSkin": [
-            "Abyssal Guard [Blue]",
-            "One Year Triton",
-            "Kraken Triton"
-          ],
+          "chessSkin": ["Abyssal Guard [Blue]", "One Year Triton", "Kraken Triton"],
           "lifeValue": "650",
           "skillName": "Corrosion",
           "cardExpend": "2",
@@ -1434,11 +1430,7 @@
           "cardImg": "https://static.ilongyuan.cn/official_website/e52b47a8c88/c824c7321a011052ab971e30603035ab.png",
           "cardType": ["Assassin"],
           "category": ["Marine"],
-          "chessSkin": [
-            "Abyssalcrawler [Blue]",
-            "Kraken Nana",
-            "One Year Nana"
-          ],
+          "chessSkin": ["Abyssalcrawler [Blue]", "Kraken Nana", "One Year Nana"],
           "lifeValue": "500",
           "skillName": "Spiral Crawler",
           "cardExpend": "2",
@@ -4152,11 +4144,7 @@
           "cardImg": "https://static.ilongyuan.cn/official_website/e52b47a8c88/ac4480c18f8a03f0444d3b713a90c739.png",
           "cardType": ["Hunter"],
           "category": ["Marine"],
-          "chessSkin": [
-            "Tsunami Stalker [Blue]",
-            "One Year Nyarlat",
-            "Kraken Nyarlat"
-          ],
+          "chessSkin": ["Tsunami Stalker [Blue]", "One Year Nyarlat", "Kraken Nyarlat"],
           "lifeValue": "950",
           "skillName": "Ravaging Tentacles",
           "cardExpend": "5",
