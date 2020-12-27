@@ -27,10 +27,54 @@ const getItemKeyCombinator = ({ columnIndex, data, rowIndex }) => {
   return `${item.icon}-${columnIndex}-${rowIndex}`;
 };
 
+const getFilteredData = (data, copiedData, racesFilter, classesFilter) => {
+  let firstSome;
+  let firstItem;
+  let secondSome;
+  let secondItem;
+  let filteredData = data.filter((subData) => {
+    firstSome = subData.fields_data.category.some((item) => {
+      firstItem = racesFilter.find((raceItem) => raceItem.text.toLowerCase().trim() === item.toLowerCase().trim());
+      return firstItem ? firstItem.active : false;
+    });
+    secondSome = subData.fields_data.cardType.some((item) => {
+      secondItem = classesFilter.find((classItem) => classItem.text.toLowerCase().trim() === item.toLowerCase().trim());
+      return secondItem ? secondItem.active : false;
+    });
+    return firstSome || secondSome;
+  });
+  if (!filteredData.length) {
+    filteredData = [...data.map((it) => ({ ...it }))];
+  }
+  const copiedDataLength = copiedData.length;
+  const currentBase = { ...baseComplete, resource_code: makeId() };
+
+  if (copiedDataLength > filteredData.length) {
+    const filteredDataLength = filteredData.length;
+    for (let index = filteredDataLength; index < copiedDataLength; index++) {
+      // * Add blank cards because of a bug
+      // * with react-window or react-virtualized-auto-sizer I think
+      filteredData.push({ ...currentBase });
+    }
+  } else {
+    // * Remove them when the they're not needed
+    let quantityItemsToRemove = filteredData.length - copiedDataLength;
+    filteredData.forEach((item, index, object) => {
+      if (quantityItemsToRemove === 0) return false;
+      if (!item.fields_data.name) {
+        object.splice(index, 1);
+        quantityItemsToRemove--;
+      }
+    });
+  }
+
+  return filteredData;
+};
+
 const Home = ({ data }) => {
   const payload = Array.from(Array(10).keys()).map(() => ({ ...base }));
-  const [selected, setSelected] = useState(payload);
-  const [copiedData, setCopiedData] = useState([...data.map((it) => ({ ...it }))]);
+  const [selected, setSelected] = useState(() => payload);
+  const [copiedData, setCopiedData] = useState(() => [...data.map((it) => ({ ...it }))]);
   const [racesFilter, setRacesFilter] = useState(races);
   const [classesFilter, setClassesFilter] = useState(classes);
   const [buffs, setBuffs] = useState([]);
@@ -38,72 +82,88 @@ const Home = ({ data }) => {
   const [maxItemsPerRowCombinator, setMaxItemsPerRowCombinator] = useState(2);
   const firstUpdateRaces = useRef(true);
   const firstUpdateClasses = useRef(true);
+  const firstUpdateBuffs = useRef(true);
   const [isTabletOrBelow, setIsTabletOrBelow] = useState(false);
 
-  const hasUpdatedCopiedDataStyle = useCallback((fieldsData, active = true) => {
-    const foundIndex = copiedData.findIndex((it) => it.fields_data.name === fieldsData.name);
-    if (foundIndex > -1) {
-      copiedData[foundIndex].fields_data.active = active;
-      return true;
-    }
+  const hasUpdatedCopiedDataStyle = useCallback(
+    (fieldsData, copiedData, active = true) => {
+      const foundIndex = copiedData.findIndex((it) => it.fields_data.name === fieldsData.name);
+      if (foundIndex > -1) {
+        copiedData[foundIndex].fields_data.active = active;
+        return true;
+      }
 
-    return false;
-  });
+      return false;
+    },
+    [copiedData]
+  );
 
-  const handleSelect = (fieldsData) => {
-    const isItemAlreadySelected = selected.find((it) => it.name === fieldsData.name);
-    if (isItemAlreadySelected) return;
-    let hasUpdated = [];
-    hasUpdated.push(hasUpdatedCopiedDataStyle(fieldsData));
-    const emptyItemIndexToRemove = selected.findIndex((it) => !it.name);
+  const handleSelect = useCallback(
+    (fieldsData) => {
+      const isItemAlreadySelected = selected.find((it) => it.name === fieldsData.name);
+      if (isItemAlreadySelected) return;
+      let hasUpdated = [];
+      hasUpdated.push(hasUpdatedCopiedDataStyle(fieldsData, copiedData));
+      const emptyItemIndexToRemove = selected.findIndex((it) => !it.name);
 
-    if (emptyItemIndexToRemove > -1) {
-      selected.splice(emptyItemIndexToRemove, 1);
-    } else {
-      const itemRemoved = selected.pop();
+      if (emptyItemIndexToRemove > -1) {
+        selected.splice(emptyItemIndexToRemove, 1);
+      } else {
+        const itemRemoved = selected.pop();
+        const SET_INACTIVE_STYLE_TO_CARD = false;
+        hasUpdated.push(hasUpdatedCopiedDataStyle(itemRemoved, copiedData, SET_INACTIVE_STYLE_TO_CARD));
+      }
+
+      const COPIED_DATA_IS_UPDATED = true;
+
+      if (hasUpdated.includes(COPIED_DATA_IS_UPDATED)) {
+        setCopiedData([...copiedData]);
+      }
+
+      setSelected([
+        {
+          ...fieldsData
+        },
+        ...selected
+      ]);
+    },
+    [setSelected, setCopiedData, selected, copiedData]
+  );
+
+  const handleUnselect = useCallback(
+    (fieldsData) => {
+      const foundIndex = selected.findIndex((it) => it.name === fieldsData.name);
+      if (foundIndex < 0) return;
       const SET_INACTIVE_STYLE_TO_CARD = false;
-      hasUpdated.push(hasUpdatedCopiedDataStyle(itemRemoved, SET_INACTIVE_STYLE_TO_CARD));
-    }
+      const hasUpdated = hasUpdatedCopiedDataStyle(fieldsData, copiedData, SET_INACTIVE_STYLE_TO_CARD);
 
-    const COPIED_DATA_IS_UPDATED = true;
+      if (hasUpdated) {
+        setCopiedData([...copiedData]);
+      }
 
-    if (hasUpdated.includes(COPIED_DATA_IS_UPDATED)) {
-      setCopiedData([...copiedData]);
-    }
+      selected.splice(foundIndex, 1);
+      setSelected([...selected, { ...base }]);
+    },
+    [setSelected, setCopiedData, selected, copiedData]
+  );
 
-    setSelected([
-      {
-        ...fieldsData
-      },
-      ...selected
-    ]);
-  };
+  const toggleRacesFilter = useCallback(
+    (_, idx) => {
+      racesFilter[idx].active = !racesFilter[idx].active;
+      setRacesFilter([...racesFilter]);
+    },
+    [setRacesFilter, racesFilter]
+  );
 
-  const handleUnselect = (fieldsData) => {
-    const foundIndex = selected.findIndex((it) => it.name === fieldsData.name);
-    if (foundIndex < 0) return;
-    const SET_INACTIVE_STYLE_TO_CARD = false;
-    const hasUpdated = hasUpdatedCopiedDataStyle(fieldsData, SET_INACTIVE_STYLE_TO_CARD);
+  const toggleClassesFilter = useCallback(
+    (_, idx) => {
+      classesFilter[idx].active = !classesFilter[idx].active;
+      setClassesFilter([...classesFilter]);
+    },
+    [setClassesFilter, classesFilter]
+  );
 
-    if (hasUpdated) {
-      setCopiedData([...copiedData]);
-    }
-
-    selected.splice(foundIndex, 1);
-    setSelected([...selected, { ...base }]);
-  };
-
-  const toggleRacesFilter = (_, idx) => {
-    racesFilter[idx].active = !racesFilter[idx].active;
-    setRacesFilter([...racesFilter]);
-  };
-
-  const toggleClassesFilter = (_, idx) => {
-    classesFilter[idx].active = !classesFilter[idx].active;
-    setClassesFilter([...classesFilter]);
-  };
-
-  const clearAllCards = () => {
+  const clearAllCards = useCallback(() => {
     const newSelectedArray = selected.filter((it) => !it.name);
     const quantity = newSelectedArray.length || 0;
     for (let index = quantity; index < 10; index++) {
@@ -115,55 +175,14 @@ const Home = ({ data }) => {
     });
     setSelected([...newSelectedArray]);
     setCopiedData([...newDataStyle]);
-  };
-
-  const getFilteredData = () => {
-    let firstSome;
-    let firstItem;
-    let secondSome;
-    let secondItem;
-    let filteredData = data.filter((subData) => {
-      firstSome = subData.fields_data.category.some((item) => {
-        firstItem = racesFilter.find((raceItem) => raceItem.text.toLowerCase().trim() === item.toLowerCase().trim());
-        return firstItem ? firstItem.active : false;
-      });
-      secondSome = subData.fields_data.cardType.some((item) => {
-        secondItem = classesFilter.find(
-          (classItem) => classItem.text.toLowerCase().trim() === item.toLowerCase().trim()
-        );
-        return secondItem ? secondItem.active : false;
-      });
-      return firstSome || secondSome;
-    });
-    if (!filteredData.length) {
-      filteredData = [...data.map((it) => ({ ...it }))];
-    }
-    const copiedDataLength = copiedData.length;
-    const currentBase = { ...baseComplete, resource_code: makeId() };
-
-    if (copiedDataLength > filteredData.length) {
-      const filteredDataLength = filteredData.length;
-      for (let index = filteredDataLength; index < copiedDataLength; index++) {
-        // * Add blank cards because of a bug
-        // * with react-window or react-virtualized-auto-sizer I think
-        filteredData.push({ ...currentBase });
-      }
-    } else {
-      // * Remove them when the they're not needed
-      let quantityItemsToRemove = filteredData.length - copiedDataLength;
-      filteredData.forEach((item, index, object) => {
-        if (quantityItemsToRemove === 0) return false;
-        if (!item.fields_data.name) {
-          object.splice(index, 1);
-          quantityItemsToRemove--;
-        }
-      });
-    }
-
-    return filteredData;
-  };
+  }, [setSelected, setCopiedData, copiedData, selected]);
 
   useEffect(() => {
+    if (firstUpdateBuffs.current) {
+      firstUpdateBuffs.current = false;
+      return;
+    }
+
     const localClasses = getClassesSelectedBufs(selected);
     const localRaces = getRacesSelectedBuffs(selected, localClasses);
     let buffs = [...localRaces, ...localClasses];
@@ -182,7 +201,8 @@ const Home = ({ data }) => {
       firstUpdateRaces.current = false;
       return;
     }
-    const filteredData = getFilteredData();
+
+    const filteredData = getFilteredData(data, copiedData, racesFilter, classesFilter);
     setCopiedData(getSortedArrayByRace(filteredData, "fields_data"));
   }, [racesFilter]);
 
@@ -192,7 +212,7 @@ const Home = ({ data }) => {
       return;
     }
 
-    const filteredData = getFilteredData();
+    const filteredData = getFilteredData(data, copiedData, racesFilter, classesFilter);
     setCopiedData(getSortedArrayByRace(filteredData, "fields_data"));
   }, [classesFilter]);
 

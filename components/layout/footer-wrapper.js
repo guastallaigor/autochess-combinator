@@ -1,4 +1,5 @@
 import tw from "twin.macro";
+import { memo } from "react";
 
 const FooterWrapper = () => {
   return (
@@ -26,4 +27,4 @@ const FooterWrapper = () => {
   );
 };
 
-export default FooterWrapper;
+export default memo(FooterWrapper);

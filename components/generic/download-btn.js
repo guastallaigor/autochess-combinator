@@ -1,11 +1,10 @@
 import tw, { styled } from "twin.macro";
 import PropTypes from "prop-types";
 import download from "downloadjs";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { memo, useState, useEffect, useRef, useCallback } from "react";
 import html2canvas from "html2canvas";
 import SmallFrontCard from "../card/small-front-card";
 import BuffsImg from "./buffs-img";
-
 const prefixMap = `ml-3 h-9 px-3 flex items-center justify-center transition-opacity duration-300 ease-in-out rounded-md text-white hover:opacity-75`;
 const styleMap = {
   disabled: tw`${prefixMap} cursor-not-allowed opacity-75 bg-gray-500`,
@@ -120,4 +119,4 @@ DownloadBtn.propTypes = {
   buffs: PropTypes.array.isRequired
 };
 
-export default DownloadBtn;
+export default memo(DownloadBtn);
