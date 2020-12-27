@@ -20,12 +20,9 @@ const getFromArrayOrString = (payload) => {
 
 const getImage = (payload) => {
   const icon = getFromArrayOrString(payload);
-  return icon && typeof icon === "string"
-    ? `/chess-icons/${icon.toLowerCase().trim()}.png`
-    : "/chess-icons/none.png";
+  return icon && typeof icon === "string" ? `/chess-icons/${icon.toLowerCase().trim()}.png` : "/chess-icons/none.png";
 };
 
-const makeId = (length = 50) =>
-  [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
+const makeId = (length = 50) => [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join("");
 
 export { getSortedArrayByRace, getImage, getFromArrayOrString, makeId };

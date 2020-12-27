@@ -7,9 +7,8 @@ const styleMap = {
   Uncommon: tw`${prefixMap} from-green-200 to-green-400`,
   Epic: tw`${prefixMap} from-pink-200 to-pink-400`,
   Legendary: tw`${prefixMap} from-yellow-200 to-yellow-400`,
-  default: tw`${prefixMap} from-gray-200 to-gray-400`,
+  default: tw`${prefixMap} from-gray-200 to-gray-400`
 };
-const getContainerStyle = ({ quality }) =>
-  styleMap[quality] || styleMap.default;
+const getContainerStyle = ({ quality }) => styleMap[quality] || styleMap.default;
 
 export { getContainerStyle };

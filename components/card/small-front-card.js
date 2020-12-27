@@ -1,4 +1,5 @@
 import tw, { styled } from "twin.macro";
+import PropTypes from "prop-types";
 import Image from "next/image";
 import { getImage, getFromArrayOrString } from "../../utils/index";
 import { getContainerStyle } from "../../utils/css";
@@ -9,9 +10,7 @@ const SmallFrontCard = ({ fieldsData }) => {
   return (
     <Container quality={getFromArrayOrString(fieldsData.cardQuality)}>
       <div tw="flex flex-col flex-nowrap items-center justify-center py-2 bg-white relative z-10">
-        <div tw="font-semibold truncate text-sm text-gray-700">
-          {fieldsData.name}
-        </div>
+        <div tw="font-semibold truncate text-sm text-gray-700">{fieldsData.name}</div>
         <div tw="flex flex-row flex-nowrap items-center">
           <Image
             src="/chess-icons/coin.png"
@@ -36,15 +35,9 @@ const SmallFrontCard = ({ fieldsData }) => {
           priority={true}
         />
       </div>
-      <div
-        tw="flex flex-row flex-nowrap relative justify-center items-center bg-white"
-        className="min-h-60"
-      >
+      <div tw="flex flex-row flex-nowrap relative justify-center items-center bg-white" className="min-h-60">
         {fieldsData.category.length > 1 ? (
-          <div
-            tw="flex flex-col items-center text-center"
-            className="add-gap-inside"
-          >
+          <div tw="flex flex-col items-center text-center" className="add-gap-inside">
             {fieldsData.category.map((category, idx) => {
               return (
                 <Image
@@ -89,6 +82,10 @@ const SmallFrontCard = ({ fieldsData }) => {
       </div>
     </Container>
   );
+};
+
+SmallFrontCard.propTypes = {
+  fieldsData: PropTypes.object.isRequired
 };
 
 export default SmallFrontCard;

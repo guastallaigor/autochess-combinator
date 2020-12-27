@@ -13,8 +13,7 @@ const HeaderWrapper = () => {
           tw="text-sm hover:opacity-75 transition-all duration-300 ease-in-out hover:text-yellow-600 lg:text-base block text-center"
           name="github"
           aria-label="Github Link"
-          target="_blank"
-        >
+          target="_blank">
           Created by @guastallaigor
         </a>
       </h1>

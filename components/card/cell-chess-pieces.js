@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import FrontCard from "./front-card";
 import EmptyCard from "./empty-card";
 
@@ -15,6 +16,13 @@ const CellChessPieces = ({ rowIndex, columnIndex, data, style }) => {
   ) : (
     <EmptyCard style={style} />
   );
+};
+
+CellChessPieces.propTypes = {
+  rowIndex: PropTypes.number.isRequired,
+  columnIndex: PropTypes.number.isRequired,
+  data: PropTypes.object.isRequired,
+  style: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 };
 
 export default CellChessPieces;

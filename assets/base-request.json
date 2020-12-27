@@ -1372,11 +1372,7 @@
           "cardImg": "https://ik.imagekit.io/6xhf1gnexgdgk/tr:w-225,h-225/Autochess/chess-img/abyssal_guard_WW58uEwe8.png",
           "cardType": ["Warrior"],
           "category": ["Marine"],
-          "chessSkin": [
-            "Abyssal Guard [Blue]",
-            "One Year Triton",
-            "Kraken Triton"
-          ],
+          "chessSkin": ["Abyssal Guard [Blue]", "One Year Triton", "Kraken Triton"],
           "lifeValue": "650",
           "skillName": "Corrosion",
           "cardExpend": "2",
@@ -1435,11 +1431,7 @@
           "cardImg": "https://ik.imagekit.io/6xhf1gnexgdgk/tr:w-225,h-225/Autochess/chess-img/abyssalcrawler_BrHIaouGA.png",
           "cardType": ["Assassin"],
           "category": ["Marine"],
-          "chessSkin": [
-            "Abyssalcrawler [Blue]",
-            "Kraken Nana",
-            "One Year Nana"
-          ],
+          "chessSkin": ["Abyssalcrawler [Blue]", "Kraken Nana", "One Year Nana"],
           "lifeValue": "500",
           "skillName": "Spiral Crawler",
           "cardExpend": "2",
@@ -4215,11 +4207,7 @@
           "cardImg": "https://ik.imagekit.io/6xhf1gnexgdgk/tr:w-225,h-225/Autochess/chess-img/tsunami_stalker_syJXDz-76X.png",
           "cardType": ["Hunter"],
           "category": ["Marine"],
-          "chessSkin": [
-            "Tsunami Stalker [Blue]",
-            "One Year Nyarlat",
-            "Kraken Nyarlat"
-          ],
+          "chessSkin": ["Tsunami Stalker [Blue]", "One Year Nyarlat", "Kraken Nyarlat"],
           "lifeValue": "950",
           "skillName": "Ravaging Tentacles",
           "cardExpend": "5",

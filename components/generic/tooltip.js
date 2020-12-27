@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const Tooltip = (props) => {
   let timeout;
@@ -35,18 +36,19 @@ const Tooltip = (props) => {
     <>
       <div
         className="tooltip-wrapper"
+        role="button"
+        tabIndex={0}
         onMouseEnter={() => showTip(true)}
         onMouseLeave={() => hideTip(true)}
         onClick={() => (active ? hideTip(false) : showTip(false))}
-      >
+        onKeyPress={() => (active ? hideTip(false) : showTip(false))}>
         {props.children}
         {active && (
           <div
             className={`tooltip-tip ${props.direction || "top"}`}
             dangerouslySetInnerHTML={{
-              __html: props.content,
-            }}
-          ></div>
+              __html: props.content
+            }}></div>
         )}
       </div>
       <style jsx>{`
@@ -121,6 +123,13 @@ const Tooltip = (props) => {
       `}</style>
     </>
   );
+};
+
+Tooltip.propTypes = {
+  delay: PropTypes.number,
+  direction: PropTypes.oneOf(["top", "left", "bottom", "right"]).isRequired,
+  content: PropTypes.string.isRequired,
+  children: PropTypes.element
 };
 
 export default Tooltip;
