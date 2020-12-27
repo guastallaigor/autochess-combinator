@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
+import { areEqual } from "react-window";
 import FrontCard from "./front-card";
 import EmptyCard from "./empty-card";
 
@@ -25,4 +27,4 @@ CellChessPieces.propTypes = {
   style: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 };
 
-export default CellChessPieces;
+export default memo(CellChessPieces, areEqual);

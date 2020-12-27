@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
+import { areEqual } from "react-window";
 import FrontCard from "./front-card";
 import EmptyCard from "./empty-card";
 
@@ -19,4 +21,4 @@ CellCombinator.propTypes = {
   style: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 };
 
-export default CellCombinator;
+export default memo(CellCombinator, areEqual);

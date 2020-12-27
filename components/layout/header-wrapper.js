@@ -1,5 +1,4 @@
 import tw from "twin.macro";
-import { memo } from "react";
 
 const HeaderWrapper = () => {
   return (
@@ -22,4 +21,4 @@ const HeaderWrapper = () => {
   );
 };
 
-export default memo(HeaderWrapper);
+export default HeaderWrapper;

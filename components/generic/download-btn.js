@@ -59,7 +59,7 @@ const DownloadBtn = ({ selected, buffs }) => {
     console.log("render", ":1");
   }, [setDownloading]);
 
-  console.log("render", ":2");
+  console.log("DownloadBtn", ":2");
 
   return (
     <>

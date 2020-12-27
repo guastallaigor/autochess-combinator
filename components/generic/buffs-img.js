@@ -1,6 +1,7 @@
 import tw from "twin.macro";
 import PropTypes from "prop-types";
 import Image from "next/image";
+import { memo } from "react";
 import Tooltip from "./tooltip";
 import { getImage } from "../../utils/index";
 
@@ -36,4 +37,4 @@ BuffsImg.propTypes = {
   priority: PropTypes.bool
 };
 
-export default BuffsImg;
+export default memo(BuffsImg);

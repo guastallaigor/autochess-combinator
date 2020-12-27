@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import PropTypes from "prop-types";
 
 const Tooltip = (props) => {
@@ -31,6 +31,8 @@ const Tooltip = (props) => {
       clearTimeout(timeoutClear);
     }, 100);
   };
+
+  console.log("Tooltip", ":1");
 
   return (
     <>
@@ -132,4 +134,4 @@ Tooltip.propTypes = {
   children: PropTypes.element
 };
 
-export default Tooltip;
+export default memo(Tooltip);

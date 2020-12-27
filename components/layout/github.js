@@ -1,5 +1,4 @@
 import tw from "twin.macro";
-import { memo } from "react";
 
 const Github = () => (
   <>
@@ -62,4 +61,4 @@ const Github = () => (
   </>
 );
 
-export default memo(Github);
+export default Github;
