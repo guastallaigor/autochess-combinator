@@ -1,7 +1,7 @@
 import tw, { styled } from "twin.macro";
 import PropTypes from "prop-types";
 import download from "downloadjs";
-import { memo, useState, useEffect, useRef, useCallback } from "react";
+import { memo, useState, useEffect, useRef, useCallback, useMemo } from "react";
 import html2canvas from "html2canvas";
 import SmallFrontCard from "../card/small-front-card";
 import BuffsImg from "./buffs-img";
@@ -15,8 +15,10 @@ const Button = styled.button(getButtonStyle);
 const noSelected = (selected) => !selected.filter((it) => it.name).length;
 
 const DownloadBtn = ({ selected, buffs }) => {
-  const [downloading, setDownloading] = useState(false);
+  const [downloading, setDownloading] = useState(() => false);
   const first = useRef(true);
+  const status = useMemo(() => (noSelected(selected) ? "disabled" : ""), [selected]);
+  const disabled = useMemo(() => noSelected(selected), [selected]);
   let timeout;
 
   useEffect(() => {
@@ -26,7 +28,6 @@ const DownloadBtn = ({ selected, buffs }) => {
     }
 
     if (!downloading || !selected.length) return;
-    console.log("render", ":3");
 
     try {
       timeout = setTimeout(async () => {
@@ -56,10 +57,10 @@ const DownloadBtn = ({ selected, buffs }) => {
 
   const onDownload = useCallback(() => {
     setDownloading(true);
-    console.log("render", ":1");
   }, [setDownloading]);
 
-  console.log("DownloadBtn", ":2");
+  // ! TODO
+  // ! This component is rendering twice for some reason in every action
 
   return (
     <>
@@ -90,11 +91,7 @@ const DownloadBtn = ({ selected, buffs }) => {
           </div>
         </div>
       )}
-      <Button
-        type="button"
-        onClick={onDownload}
-        status={noSelected(selected) ? "disabled" : ""}
-        disabled={noSelected(selected)}>
+      <Button type="button" onClick={onDownload} status={status} disabled={disabled}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

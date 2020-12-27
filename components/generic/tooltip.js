@@ -32,8 +32,6 @@ const Tooltip = (props) => {
     }, 100);
   };
 
-  console.log("Tooltip", ":1");
-
   return (
     <>
       <div
