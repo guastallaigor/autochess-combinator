@@ -8,8 +8,7 @@ export default class MyDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />)
         });
       const initialProps = await Document.getInitialProps(ctx);
       return {
@@ -19,7 +18,7 @@ export default class MyDocument extends Document {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        ),
+        )
       };
     } finally {
       sheet.seal();
@@ -33,42 +32,19 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta name="application-name" content="Auto Chess Combinator" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="default"
-          />
-          <meta
-            name="apple-mobile-web-app-title"
-            content="Auto Chess Combinator"
-          />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="Auto Chess Combinator" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="msapplication-config" content="/browserconfig.xml" />
           <meta name="msapplication-tap-highlight" content="no" />
           <meta name="theme-color" content="#000000" />
 
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-          />
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-          />
-          <link
-            rel="canonical"
-            href="https://autochess-combinator.vercel.app"
-          />
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+          <link rel="canonical" href="https://autochess-combinator.vercel.app" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
@@ -77,7 +53,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta
             name="keywords"
-            content="Auto Chess,Auto Chess strategies,AutoChess,Auto Chess PC version,Auto Chess mobile game,Auto Chess Combinator,AutoChessCombinator"
+            content="Auto Chess,Auto Chess strategies,AutoChess,Auto Chess PC version,Auto Chess mobile game,Auto Chess Combinator,AutoChessCombinator,team,builder,team builder,auto chess,autochess,teambuilder"
           />
           <meta name="theme-color" content="#ffffff" />
           <meta name="title" content="Auto Chess Combinator" />
@@ -88,10 +64,7 @@ export default class MyDocument extends Document {
           />
           <meta name="robots" content="index,follow" />
           <meta property="og:type" content="website" />
-          <meta
-            property="og:url"
-            content="https://autochess-combinator.vercel.app"
-          />
+          <meta property="og:url" content="https://autochess-combinator.vercel.app" />
           <meta property="og:title" content="Auto Chess Combinator" />
           <meta
             property="og:description"
@@ -110,18 +83,15 @@ export default class MyDocument extends Document {
             content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!"
           />
           <meta property="twitter:image" content="/icon-192x192.png" />
-          <meta
-            property="twitter:image:alt"
-            content="Logo Auto Chess Combinator"
-          />
+          <meta property="twitter:image:alt" content="Logo Auto Chess Combinator" />
         </Head>
         <body>
           <Main />
           <NextScript />
           <noscript>
             <strong>
-              We're sorry but Auto Chess Combinator doesn't work properly
-              without JavaScript enabled. Please enable it to continue.
+              We&#39;re sorry but Auto Chess Combinator doesn&#39;t work properly without JavaScript enabled. Please
+              enable it to continue.
             </strong>
           </noscript>
         </body>

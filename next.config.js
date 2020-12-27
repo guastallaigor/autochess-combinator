@@ -1,10 +1,10 @@
 const withPWA = require("next-pwa");
 module.exports = withPWA({
   images: {
-    domains: ["ik.imagekit.io"],
+    domains: ["ik.imagekit.io"]
   },
   pwa: {
-    dest: "public",
+    dest: "public"
   },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
@@ -13,5 +13,5 @@ module.exports = withPWA({
     }
 
     return config;
-  },
+  }
 });
