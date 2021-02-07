@@ -8,6 +8,7 @@ import CellChessPieces from "../components/card/cell-chess-pieces";
 import CellCombinator from "../components/card/cell-combinator";
 import FooterWrapper from "../components/layout/footer-wrapper";
 import HeaderWrapper from "../components/layout/header-wrapper";
+import Github from "../components/layout/github";
 import BuffsImg from "../components/generic/buffs-img";
 import DownloadBtn from "../components/generic/download-btn";
 import { base, baseComplete, races, classes } from "../assets/static";
@@ -229,6 +230,7 @@ const Home = ({ data }) => {
   return (
     <section tw="flex flex-col justify-center items-center">
       <HeaderWrapper />
+      <Github />
       <main tw="w-full flex flex-col lg:flex-row lg:flex-wrap xl:my-6 my-3 relative h-full items-center justify-center">
         <div tw="xl:w-9/12 2xl:w-7/12 3xl:w-3/4 xl:max-w-5xl 2xl:max-w-8xl w-full" className="height-cards">
           <h2 tw="text-center xl:text-left xl:pl-2 text-xl tracking-tight font-extrabold sm:text-2xl md:text-3xl text-white">
